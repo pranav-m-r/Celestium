@@ -1,125 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'globals.dart';
+import 'stararchive/saselection.dart';
+import 'stararchive/createstar.dart';
+import 'explorium/exselection.dart';
+import 'explorium/exresults.dart';
+import 'planetarium/plselection.dart';
+import 'skycalendar/scselection.dart';
+import 'deepsky/dsselection.dart';
+import 'spacequiz/sqselection.dart';
+import 'spacequiz/quizpage.dart';
+import 'results/results.dart';
+import 'about/about.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Astro Quest',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: txtColor),
         useMaterial3: true,
+        scaffoldBackgroundColor: Colors.transparent,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/stararchive': (context) => const StarArchive(),
+        '/createstar': (context) => const CreateStar(),
+        '/explorium': (context) => const Explorium(),
+        '/exresult': (context) => const ExpResult(),
+        '/planetarium': (context) => const Planetarium(),
+        '/skycalendar': (context) => const SkyCalendar(),
+        '/deepsky': (context) => const DeepSky(),
+        '/spacequiz': (context) => const SpaceQuiz(),
+        '/quizscreen': (context) => const QuizScreen(),
+        '/result': (context) => const ResultPage(),
+        '/about': (context) => const AboutPage(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double padding = screenWidth * 0.07;
+
+    SizedBox uiButton(String route, String txt, IconData icon) {
+      double y = 0.11;
+      return SizedBox(
+        height: screenHeight * y,
+        child: ElevatedButton(
+          style: style,
+          onPressed: () {Navigator.pushNamed(context, route);},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(icon, size: 30),
+              Text(
+                txt,
+                style: const TextStyle(fontSize: 26),
+              ),
+              const Icon(
+                Icons.arrow_forward,
+                size: 28,
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      );
+    }
+
+    SizedBox spacing() {
+      return SizedBox(height: padding * 0.8);
+    }
+
+    return Container(
+      decoration: background,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.black26,
+            title: const Text('Astro Quest'),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.info_outline),
+                onPressed: () {Navigator.pushNamed(context, '/about');},
+              ),],
+          ),
+          body: ListView(
+            padding: EdgeInsets.all(padding),
+                children: <Widget>[
+                  uiButton('/stararchive', 'Star Archive', Icons.folder_special),
+                  spacing(),
+                  uiButton('/explorium', 'Explorium', Icons.web_stories),
+                  spacing(),
+                  uiButton('/planetarium', 'Planetarium', Icons.public),
+                  spacing(),
+                  uiButton('/deepsky', 'Sky Catalogs', Icons.library_books),
+                  spacing(),
+                  uiButton('/skycalendar', 'Sky Calendar', Icons.calendar_month),
+                  spacing(),
+                  uiButton('/spacequiz', 'Space Quizzer', Icons.quiz),
+                ],),
+              ),
+            );
   }
 }

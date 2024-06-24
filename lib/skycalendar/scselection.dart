@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:astroquest/globals.dart';
 
-class StarArchive extends StatefulWidget {
-  const StarArchive({super.key});
+class SkyCalendar extends StatefulWidget {
+  const SkyCalendar({super.key});
 
   @override
-  State<StarArchive> createState() => _StarArchiveState();
+  State<SkyCalendar> createState() => _SkyCalendarState();
 }
 
-class _StarArchiveState extends State<StarArchive> {
+class _SkyCalendarState extends State<SkyCalendar> {
 
   @override
   Widget build(BuildContext context) {
