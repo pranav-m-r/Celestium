@@ -51,7 +51,7 @@ class _AboutPageState extends State<AboutPage> {
               ),
               const Icon(
                 Icons.arrow_forward,
-                size: 25,
+                size: 27,
               ),
             ],
           ),
@@ -69,58 +69,35 @@ class _AboutPageState extends State<AboutPage> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.black26,
-          title: const Text('Astro Quest'),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.info_outline),
-              onPressed: () {
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
-          ],
-        ),
+        appBar: appBar('About Us'),
         body: ListView(
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            Center(
-              child: Text(
-                '© 2020-24 Astro Gen-Z',
-                style: TextStyle(fontSize: 18, color: textColor),
-              ),
-            ),
+            text(18, '© 2020-24 Astro Gen-Z'),
             spacing(),
-            Center(
-              child: Text(
-                'Astro Quest v$version',
-                style: TextStyle(fontSize: 25, color: textColor),
-              ),
-            ),
+            text(25, 'Astro Quest v$version'),
             spacing(),
             spacing(),
             webButton("https://astrogenz.wixsite.com/astrogenz", "Website",
-                const Icon(Icons.language, size: 25)),
+                const Icon(Icons.language, size: 27)),
             spacing(),
             webButton("https://astrogenz.wixsite.com/astrogenz/policy",
-                "Privacy", const Icon(Icons.policy, size: 25)),
+                "Privacy", const Icon(Icons.policy, size: 27)),
             spacing(),
             webButton("https://astrogenz.wixsite.com/astrogenz/credits",
-                "Credits", const Icon(Icons.copyright, size: 25)),
+                "Credits", const Icon(Icons.copyright, size: 27)),
             spacing(),
             webButton("https://astrogenz.wixsite.com/astrogenz/contact",
-                "Contact", const Icon(Icons.email, size: 25)),
+                "Contact", const Icon(Icons.email, size: 27)),
             spacing(),
             webButton("https://youtube.com/@astrogen-z", "YouTube",
-                const ImageIcon(AssetImage("assets/youtube.png"), size: 23)),
+                const ImageIcon(AssetImage("assets/youtube.png"), size: 25)),
             spacing(),
             webButton(
                 "https://play.google.com/store/apps/dev?id=9125981999068904156",
                 "Play Store",
-                const ImageIcon(AssetImage("assets/googleplay.png"), size: 21)),
+                const ImageIcon(AssetImage("assets/googleplay.png"), size: 22)),
           ],
         ),
       ),

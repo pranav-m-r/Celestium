@@ -66,10 +66,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    double padding = screenWidth * 0.07;
+    double padding = screenWidth * 0.05;
 
-    SizedBox uiButton(String route, String txt, IconData icon) {
-      double y = 0.11;
+    SizedBox routeButton(String route, String txt, IconData icon) {
+      double y = 0.12;
       return SizedBox(
         height: screenHeight * y,
         child: ElevatedButton(
@@ -103,7 +103,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
           appBar: AppBar(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.black26,
+            backgroundColor: Colors.black38,
+            shadowColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
             title: const Text('Astro Quest'),
             centerTitle: true,
             actions: [
@@ -115,17 +117,17 @@ class _HomePageState extends State<HomePage> {
           body: ListView(
             padding: EdgeInsets.all(padding),
                 children: <Widget>[
-                  uiButton('/stararchive', 'Star Archive', Icons.folder_special),
+                  routeButton('/stararchive', 'Star Archive', Icons.folder_special),
                   spacing(),
-                  uiButton('/explorium', 'Explorium', Icons.web_stories),
+                  routeButton('/explorium', 'Explorium', Icons.web_stories),
                   spacing(),
-                  uiButton('/planetarium', 'Planetarium', Icons.public),
+                  routeButton('/planetarium', 'Planetarium', Icons.public),
                   spacing(),
-                  uiButton('/deepsky', 'Sky Catalogs', Icons.library_books),
+                  routeButton('/deepsky', 'Sky Catalogs', Icons.library_books),
                   spacing(),
-                  uiButton('/skycalendar', 'Sky Calendar', Icons.calendar_month),
+                  routeButton('/skycalendar', 'Sky Calendar', Icons.calendar_month),
                   spacing(),
-                  uiButton('/spacequiz', 'Space Quizzer', Icons.quiz),
+                  routeButton('/spacequiz', 'Space Quizzer', Icons.quiz),
                 ],),
               ),
             );

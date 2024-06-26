@@ -23,12 +23,7 @@ class _SpaceQuizState extends State<SpaceQuiz> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            foregroundColor: Colors.white,
-            backgroundColor: appBarBG,
-            title: const Text('Planetarium'),
-            centerTitle: true,
-          ),
+          appBar: appBar('Space Quiz'),
           body: ListView(
             padding: EdgeInsets.all(padding),
                 children: <Widget>[

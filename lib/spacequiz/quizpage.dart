@@ -23,12 +23,7 @@ class _QuizScreenState extends State<QuizScreen> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            foregroundColor: Colors.white,
-            backgroundColor: appBarBG,
-            title: const Text('Planetarium'),
-            centerTitle: true,
-          ),
+          appBar: appBar('Quiz Title//temp'),
           body: ListView(
             padding: EdgeInsets.all(padding),
                 children: <Widget>[

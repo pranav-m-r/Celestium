@@ -23,12 +23,7 @@ class _SkyCalendarState extends State<SkyCalendar> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            foregroundColor: Colors.white,
-            backgroundColor: appBarBG,
-            title: const Text('Planetarium'),
-            centerTitle: true,
-          ),
+          appBar: appBar('Sky Calendar'),
           body: ListView(
             padding: EdgeInsets.all(padding),
                 children: <Widget>[

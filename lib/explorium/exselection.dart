@@ -9,32 +9,138 @@ class Explorium extends StatefulWidget {
 }
 
 class _ExploriumState extends State<Explorium> {
+  PageController pageController = PageController();
+
+  void topicSelected(String text) {
+    expResHead = text;
+    Navigator.pushNamed(context, '/exresult');
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double padding = screenWidth * 0.05;
+    double screenHeight = MediaQuery.of(context).size.height;
 
-    SizedBox spacing() {
-      return SizedBox(height: padding * 0.8);
+    List<String> topics = [
+      'Big Bang',
+      'Universe',
+      'Star Birth',
+      'Nebulae',
+      'Star Death',
+      'Galaxies',
+    ];
+
+    List<String> images = [
+      'assets/bigbang.jpg',
+      'assets/universe.jpg',
+      'assets/M8.jpg',
+      'assets/M43.jpg',
+      'assets/M82.jpg',
+      'assets/M104.jpg',
+    ];
+
+    Center imgButton(String text, String image) {
+      return Center(
+        child: GestureDetector(
+            onTap: () {
+              topicSelected(text);
+            },
+            child: Container(
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.25,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: txtColor,
+                  width: 1,
+                ),
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.5), BlendMode.darken),
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      text,
+                      style: const TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                    SizedBox(width: screenWidth * 0.05),
+                    const Icon(
+                      Icons.arrow_forward,
+                      size: 27,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            )),
+      );
     }
 
-    return Container(
-      decoration: background,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            foregroundColor: Colors.white,
-            backgroundColor: appBarBG,
-            title: const Text('Planetarium'),
-            centerTitle: true,
-          ),
-          body: ListView(
-            padding: EdgeInsets.all(padding),
+    Container expPage(int page) {
+      return Container(
+        decoration: background,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: appBar('Explorium'),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              imgButton(topics[3 * page], images[3 * page]),
+              imgButton(topics[3 * page + 1], images[3 * page + 1]),
+              imgButton(topics[3 * page + 2], images[3 * page + 2]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  spacing(),
-                ],),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: txtColor,
+                    ),
+                    iconSize: 30,
+                    onPressed: () {
+                      pageController.previousPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                  ),
+                  Text(
+                    'Page ${page + 1}',
+                    style: const TextStyle(fontSize: 20, color: txtColor),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_forward,
+                      color: txtColor,
+                    ),
+                    iconSize: 30,
+                    onPressed: () {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                  ),
+                ],
               ),
-            );
+            ],
+          ),
+        ),
+      );
+    }
+
+    return PageView(
+      scrollDirection: Axis.horizontal,
+      controller: pageController,
+      children: <Widget>[
+        expPage(0),
+        expPage(1),
+      ],
+    );
   }
 }
