@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astroquest/globals.dart';
+import 'package:astroquest/results/resvar.dart';
 
 class Planetarium extends StatefulWidget {
   const Planetarium({super.key});
@@ -93,8 +94,8 @@ class _PlanetariumState extends State<Planetarium> {
                   IconButton(
                     icon: const Icon(
                       Icons.arrow_back,
-                      color: txtColor,
                     ),
+                    style: pageBtnStyle,
                     iconSize: 30,
                     onPressed: () {
                       pageController.previousPage(
@@ -110,8 +111,8 @@ class _PlanetariumState extends State<Planetarium> {
                   IconButton(
                     icon: const Icon(
                       Icons.arrow_forward,
-                      color: txtColor,
                     ),
+                    style: pageBtnStyle,
                     iconSize: 30,
                     onPressed: () {
                       pageController.nextPage(

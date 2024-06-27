@@ -8,13 +8,7 @@ BoxDecoration background = const BoxDecoration(
     image: DecorationImage(
         image: AssetImage('assets/Portrait.jpg'), fit: BoxFit.cover));
 
-String resHead = 'Result';
-String resBody = 'test';
-String resImgPath = 'assets/Portrait.jpg';
-
-String expResHead = 'Explorium';
-
-ButtonStyle style = ElevatedButton.styleFrom(
+ButtonStyle btnStyle = ElevatedButton.styleFrom(
     backgroundColor: Colors.black26,
     shadowColor: Colors.transparent,
     overlayColor: Colors.transparent,
@@ -23,6 +17,20 @@ ButtonStyle style = ElevatedButton.styleFrom(
       borderRadius: BorderRadius.circular(20),
       side: const BorderSide(color: txtColor, width: 0.5),
     ));
+
+ButtonStyle pageBtnStyle = ElevatedButton.styleFrom(
+    backgroundColor: Colors.black26,
+    shadowColor: Colors.transparent,
+    overlayColor: Colors.transparent,
+    foregroundColor: txtColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+      side: const BorderSide(color: txtColor, width: 1),
+    ));
+
+ButtonStyle dropdownStyle = ElevatedButton.styleFrom(
+  foregroundColor: Colors.white,
+);
 
 Center text(double size, String txt) {
   return Center(
@@ -53,5 +61,34 @@ void showErrorMessage(String msg, BuildContext context) {
     backgroundColor: Colors.black54,
     content: Text(msg, style: const TextStyle(color: Colors.white)),
   );
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
+
+String format(double num) {
+    String returnNum = num.toString();
+    if (num > 1e6) {
+      returnNum = num.toStringAsExponential(2);
+    } else if (num < 1e-5) {
+      returnNum = num.toStringAsExponential(2);
+    } else if (returnNum.contains('.') &&
+        num > 1 &&
+        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
+            4) {
+      returnNum = returnNum.substring(0, returnNum.indexOf('.') + 3);
+    } else if (returnNum.contains('.') &&
+        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
+            6) {
+      returnNum = num.toStringAsFixed(5);
+    } else if (num % 1 == 0) {
+      returnNum = num.toStringAsFixed(0);
+    }
+    if (returnNum.contains('e+')) {
+      returnNum = returnNum.replaceAll('e+', ' x 10^');
+    } else if (returnNum.contains('e-')) {
+      returnNum = returnNum.replaceAll('e-', ' x 10^-');
+    } else if (returnNum.contains('e')) {
+      returnNum = returnNum.replaceAll('e', ' x 10^');
+    }
+    return returnNum;
+  }

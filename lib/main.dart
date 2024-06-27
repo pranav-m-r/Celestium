@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
       return SizedBox(
         height: screenHeight * y,
         child: ElevatedButton(
-          style: style,
+          style: btnStyle,
           onPressed: () {Navigator.pushNamed(context, route);},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

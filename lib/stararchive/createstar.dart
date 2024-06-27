@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroquest/globals.dart';
+import 'package:astroquest/results/resvar.dart';
+import 'dart:math';
 
 class CreateStar extends StatefulWidget {
   const CreateStar({super.key});
@@ -14,7 +16,9 @@ class _CreateStarState extends State<CreateStar> {
   final lumController = TextEditingController();
   final tempController = TextEditingController();
 
-  void createStar() {
+  void setData() {
+    resHead = 'Star Created!';
+
     if (massController.text.isEmpty ||
         lumController.text.isEmpty ||
         tempController.text.isEmpty) {
@@ -45,9 +49,112 @@ class _CreateStarState extends State<CreateStar> {
       return;
     }
 
-    resHead = 'Star Created!';
-    resBody = 'Test';
-    resImgPath = 'test';
+    num radiusinm =
+        pow(((lum * 3.828e26) / (4 * 3.14 * 5.67e-8 * pow(temp, 4))), 0.5);
+    num massinkg = mass * 1.989e30;
+    double diameter = (2 * radiusinm / 1000);
+    double area = (1.256e-5 * pow(radiusinm, 2));
+    double volume = (4.187e-9 * pow(radiusinm, 3));
+    double density = (massinkg * 1e-12) / volume;
+    double gravity = (6.67e-11 * massinkg) / pow(radiusinm, 2);
+    double escvel = pow((2 * 6.67e-11 * massinkg / radiusinm), 0.5) / 1000;
+
+    num radinsolar = radiusinm / 6.9634e8;
+    String startype = '';
+    String evostage = '';
+    String lumclass = '';
+    if (lum >= 10000 && radinsolar >= 30 && temp >= 8400) {
+      startype = 'Blue Supergiant';
+      evostage = 'Supergiant';
+      lumclass = 'Class I (1)';
+    } else if (lum >= 10000 && temp <= 5000) {
+      startype = 'Red Supergiant';
+      evostage = 'Supergiant';
+      lumclass = 'Class I (1)';
+    } else if (lum >= 1000 && temp > 5000 && temp < 8400) {
+      startype = 'Bright Giant';
+      evostage = 'Bright Giant';
+      lumclass = 'Class II (2)';
+    } else if (lum >= 10 && radinsolar >= 8 && temp > 2000 && temp < 5000) {
+      startype = 'Red Giant';
+      evostage = 'Giant';
+      lumclass = 'Class III (3)';
+    } else if (lum < 1 && radinsolar <= 0.1 && temp > 5000) {
+      startype = 'White Dwarf';
+      evostage = 'White Dwarf';
+      lumclass = 'Class VII (7)';
+    } else {
+      startype = 'Main Sequence';
+      evostage = 'Main Sequence';
+      lumclass = 'Class V (5)';
+    }
+
+    String specclass = '';
+    String color = '';
+    if (temp >= 33000) {
+      specclass = 'O';
+      color = 'Blue';
+    } else if (temp >= 10000) {
+      specclass = 'B';
+      color = 'Blue-White';
+    } else if (temp >= 7500) {
+      specclass = 'A';
+      color = 'White';
+    } else if (temp >= 6000) {
+      specclass = 'F';
+      color = 'Yellow-White';
+    } else if (temp >= 5200) {
+      specclass = 'G';
+      color = 'Yellow';
+    } else if (temp >= 3700) {
+      specclass = 'K';
+      color = 'Orange';
+    } else {
+      specclass = 'M';
+      color = 'Red';
+    }
+
+    String img = 'assets/portrait.jpg';
+    if (startype == 'Blue Supergiant') {
+      img = 'assets/BlueSupergiant.jpg';
+    } else if (startype == 'Red Supergiant') {
+      img = 'assets/transit.jpg';
+    } else if (startype == 'Bright Giant') {
+      img = 'assets/BrightGiant.jpg';
+    } else if (startype == 'Red Giant') {
+      img = 'assets/RedGiant.jpg';
+    } else if (startype == 'White Dwarf') {
+      img = 'assets/WhiteDwarf.jpg';
+    } else if (startype == 'Main Sequence' &&
+        (color == 'Blue' || color == 'Blue-White')) {
+      img = 'assets/BlueMainSequence.jpg';
+    } else if (startype == 'Main Sequence' &&
+        (color == 'Red' || color == 'Orange')) {
+      img = 'assets/RedDwarf.jpg';
+    } else {
+      img = 'assets/YellowMainSequence.jpg';
+    }
+
+    String dataString = """
+      Star Type: $startype
+      Evol. Stage: $evostage\n
+      Luminosity: ${format(lum)} L☉
+      Lum. Class: $lumclass\n
+      Surf. Temperature: $temp K
+      Spectral Class: Class $specclass
+      Conventional Color: $color\n
+      Mass: ${format(mass)} M☉
+      Avg. Density: ${format(density)} g/cm³
+      Surf. Gravity: ${format(gravity)} m/s²
+      Escape Velocity: ${format(escvel)} km/s\n
+      Diameter: ${format(diameter)} km
+      Surf. Area: ${format(area)} km²
+      Volume: ${format(volume)} km³\n
+      """;
+
+    resImgPath = img;
+    resBody = dataString;
+    FocusManager.instance.primaryFocus?.unfocus();
     Navigator.pushNamed(context, '/result');
   }
 
@@ -62,7 +169,7 @@ class _CreateStarState extends State<CreateStar> {
       return SizedBox(
         height: screenHeight * y,
         child: ElevatedButton(
-          style: style,
+          style: btnStyle,
           onPressed: fxn,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,6 +193,7 @@ class _CreateStarState extends State<CreateStar> {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.12),
         child: TextField(
+          controller: ctr,
           style: const TextStyle(color: Colors.white, fontSize: 18),
           textAlign: TextAlign.left,
           onTapOutside: (event) {
@@ -93,7 +201,7 @@ class _CreateStarState extends State<CreateStar> {
           },
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Colors.grey.shade300),
+            hintStyle: TextStyle(color: Colors.grey.shade300, fontSize: 18),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: txtColor, width: 0.8),
             ),
@@ -143,8 +251,8 @@ class _CreateStarState extends State<CreateStar> {
             dspacing(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-              child: uiButton(createStar, 'Create Star',
-                  const Icon(Icons.create, size: 27)),
+              child: uiButton(
+                  setData, 'Create Star', const Icon(Icons.create, size: 27)),
             ),
             spacing(),
           ],

@@ -37,7 +37,7 @@ class _AboutPageState extends State<AboutPage> {
       return SizedBox(
         height: screenHeight * y,
         child: ElevatedButton(
-          style: style,
+          style: btnStyle,
           onPressed: () => setState(() {
             launched = openUrl(Uri.parse(url));
           }),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astroquest/globals.dart';
+import 'exdata.dart';
 
 class Explorium extends StatefulWidget {
   const Explorium({super.key});
@@ -55,7 +56,7 @@ class _ExploriumState extends State<Explorium> {
                 ),
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.5), BlendMode.darken),
+                      Colors.black.withOpacity(0.4), BlendMode.darken),
                   image: AssetImage(image),
                   fit: BoxFit.cover,
                 ),
@@ -99,8 +100,8 @@ class _ExploriumState extends State<Explorium> {
                   IconButton(
                     icon: const Icon(
                       Icons.arrow_back,
-                      color: txtColor,
                     ),
+                    style: pageBtnStyle,
                     iconSize: 30,
                     onPressed: () {
                       pageController.previousPage(
@@ -116,8 +117,8 @@ class _ExploriumState extends State<Explorium> {
                   IconButton(
                     icon: const Icon(
                       Icons.arrow_forward,
-                      color: txtColor,
                     ),
+                    style: pageBtnStyle,
                     iconSize: 30,
                     onPressed: () {
                       pageController.nextPage(

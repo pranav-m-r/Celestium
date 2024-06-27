@@ -23,7 +23,7 @@ class _DeepSkyState extends State<DeepSky> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-          appBar: appBar('Planetarium'),
+          appBar: appBar('Deep Sky Catalogs'),
           body: ListView(
             padding: EdgeInsets.all(padding),
                 children: <Widget>[
