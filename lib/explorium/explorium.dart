@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astroquest/globals.dart';
-import 'exdata.dart';
+import 'exresults.dart';
 
 class Explorium extends StatefulWidget {
   const Explorium({super.key});

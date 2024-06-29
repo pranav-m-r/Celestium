@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart' show Database;
 
 String version = 'Unknown';
 
 const txtColor = Color.fromARGB(255, 225, 200, 255);
+
+late Database db;
 
 BoxDecoration background = const BoxDecoration(
     image: DecorationImage(

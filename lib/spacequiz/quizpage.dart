@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:astroquest/globals.dart';
 
+String quizTopic = 'Quiz Page';
+
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
 
@@ -23,7 +25,7 @@ class _QuizScreenState extends State<QuizScreen> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-          appBar: appBar('Quiz Title//temp'),
+          appBar: appBar(quizTopic),
           body: ListView(
             padding: EdgeInsets.all(padding),
                 children: <Widget>[

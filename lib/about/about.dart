@@ -14,16 +14,24 @@ class _AboutPageState extends State<AboutPage> {
   Future<void>? launched;
 
   Future<void> getVersion() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      version = packageInfo.version;
-    });
+    if (version == 'Unknown') {
+      final packageInfo = await PackageInfo.fromPlatform();
+      setState(() {
+        version = packageInfo.version;
+      });
+    }
   }
 
   Future<void> openUrl(Uri url) async {
     if (!await launchUrl(url)) {
       if (mounted) showErrorMessage('Could not launch $url', context);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getVersion();
   }
 
   @override
@@ -63,8 +71,6 @@ class _AboutPageState extends State<AboutPage> {
       return SizedBox(height: padding * 0.8);
     }
 
-    getVersion();
-
     return Container(
       decoration: background,
       child: Scaffold(
@@ -74,7 +80,7 @@ class _AboutPageState extends State<AboutPage> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            text(18, '© 2020-24 Astro Gen-Z'),
+            text(18, '© 2020 Pranav M R'),
             spacing(),
             text(25, 'Astro Quest v$version'),
             spacing(),

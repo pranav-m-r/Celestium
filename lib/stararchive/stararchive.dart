@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astroquest/globals.dart';
 import 'package:astroquest/results/resvar.dart';
-import 'sadata.dart';
 import 'dart:math';
 
 class StarArchive extends StatefulWidget {
@@ -12,11 +11,44 @@ class StarArchive extends StatefulWidget {
 }
 
 class _StarArchiveState extends State<StarArchive> {
-  final nameController = TextEditingController();
-  final desigController = TextEditingController();
+  final starController = TextEditingController();
   final random = Random();
 
-  void setData(String name, Map data) {
+  List<String> stars = [];
+
+  void initList() async {
+    List<Map> list =
+        await db.query('stars', columns: ['name'], orderBy: 'name ASC');
+    setState(() {
+      for (int i = 0; i < list.length; i++) {
+        stars.add(list[i]['name']);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (stars.isEmpty) {
+      initList();
+    }
+  }
+
+  void setData(String name) async {
+    List<Map> list =
+        await db.query('stars', where: 'name = ?', whereArgs: [name]);
+
+    Map data = {
+      'const': list[0]['const'],
+      'desc': list[0]['desc'],
+      'mass': double.parse(list[0]['mass'].replaceAll(',', '')),
+      'lum': double.parse(list[0]['lum'].replaceAll(',', '')),
+      'mag': double.parse(list[0]['mag'].replaceAll(',', '')),
+      'dist': double.parse(list[0]['dist'].replaceAll(',', '')),
+      'temp': int.parse(list[0]['temp'].replaceAll(',', '')),
+      'multi': int.parse(list[0]['multi'].replaceAll(',', '')),
+    };
+
     resHead = name;
     double mass = data['mass'];
     double lum = data['lum'];
@@ -140,28 +172,20 @@ class _StarArchiveState extends State<StarArchive> {
     resImgPath = img;
     resBody = dataString;
     FocusManager.instance.primaryFocus?.unfocus();
-    Navigator.pushNamed(context, '/result');
+    if (mounted) Navigator.pushNamed(context, '/result');
   }
 
-  void selectStarByName() {
-    if (!starsByName.contains(nameController.text)) {
+  void selectStar() {
+    if (!stars.contains(starController.text)) {
       showErrorMessage('Please select a star from the list!', context);
       return;
     }
-    setData(nameController.text, starDataByName[nameController.text]);
-  }
-
-  void selectStarByDesig() {
-    if (!starsByDesig.contains(desigController.text)) {
-      showErrorMessage('Please select a star from the list!', context);
-      return;
-    }
-    setData(desigController.text, starDataByDesig[desigController.text]);
+    setData(starController.text);
   }
 
   void randomStar() {
-    String randomStar = starsByName[random.nextInt(starsByName.length)];
-    setData(randomStar, starDataByName[randomStar]);
+    String randomStar = stars[random.nextInt(stars.length)];
+    setData(randomStar);
   }
 
   void createStar() {
@@ -233,6 +257,7 @@ class _StarArchiveState extends State<StarArchive> {
             shadowColor: WidgetStatePropertyAll(Colors.transparent),
             surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
           ),
+          menuHeight: screenHeight * 0.3,
           dropdownMenuEntries:
               list.map<DropdownMenuEntry<String>>((String value) {
             return DropdownMenuEntry<String>(
@@ -267,19 +292,10 @@ class _StarArchiveState extends State<StarArchive> {
             spacing(),
             text(20, 'Want data on a specific star?'),
             dspacing(),
-            text(20, 'Search by common name:'),
-            spacing(),
-            starDropdown(nameController, starsByName),
+            starDropdown(starController, stars),
             dspacing(),
-            uiButton(selectStarByName, 'Select Star',
-                const Icon(Icons.search, size: 27)),
-            dspacing(),
-            text(20, 'Search by designation:'),
-            spacing(),
-            starDropdown(desigController, starsByDesig),
-            dspacing(),
-            uiButton(selectStarByDesig, 'Select Star',
-                const Icon(Icons.search, size: 27)),
+            uiButton(
+                selectStar, 'Select Star', const Icon(Icons.search, size: 27)),
             dspacing(),
             text(20, 'Want to create your own star?'),
             dspacing(),

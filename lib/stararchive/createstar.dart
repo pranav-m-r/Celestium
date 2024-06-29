@@ -17,7 +17,7 @@ class _CreateStarState extends State<CreateStar> {
   final tempController = TextEditingController();
 
   void setData() {
-    resHead = 'Star Created!';
+    resHead = 'Star Created';
 
     if (massController.text.isEmpty ||
         lumController.text.isEmpty ||
