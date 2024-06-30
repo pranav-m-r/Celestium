@@ -14,7 +14,6 @@ import 'catalogs/catalogs.dart';
 import 'spacequiz/spacequiz.dart';
 import 'spacequiz/quizpage.dart';
 import 'results/results.dart';
-import 'about/about.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +50,6 @@ class MyApp extends StatelessWidget {
         '/spacequiz': (context) => const SpaceQuiz(),
         '/quizscreen': (context) => const QuizScreen(),
         '/result': (context) => const ResultPage(),
-        '/about': (context) => const AboutPage(),
       },
     );
   }
@@ -130,14 +128,7 @@ class _HomePageState extends State<HomePage> {
           surfaceTintColor: Colors.transparent,
           title: const Text('Astro Quest'),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.info_outline),
-              onPressed: () {
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
-          ],
+          leading: const FlutterLogo(),
         ),
         body: ListView(
           padding: EdgeInsets.all(padding),

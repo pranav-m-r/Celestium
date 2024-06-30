@@ -1,4 +1,4 @@
-package com.example.astroquest
+package com.pranavmr.astroquest
 
 import io.flutter.embedding.android.FlutterActivity
 

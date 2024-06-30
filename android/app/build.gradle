@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.example.astroquest"
+    namespace "com.pranavmr.astroquest"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

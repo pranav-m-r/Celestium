@@ -76,29 +76,7 @@ class _EventOptionsState extends State<EventOptions> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
-
-    SizedBox uiButton(void Function() fxn, String txt) {
-      double y = 0.08;
-      return SizedBox(
-        height: screenHeight * y,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              overlayColor: Colors.transparent,
-              foregroundColor: txtColor),
-          onPressed: fxn,
-          child: Text(
-            txt,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.left,
-            style: const TextStyle(fontSize: 18),
-          ),
-        ),
-      );
-    }
 
     return Container(
       decoration: background,

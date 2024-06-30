@@ -12,9 +12,54 @@ class Planetarium extends StatefulWidget {
 class _PlanetariumState extends State<Planetarium> {
   PageController pageController = PageController();
 
-  void topicSelected(String text) {
-    resHead = text;
-    Navigator.pushNamed(context, '/result');
+  void selectPlanet(String planet) async {
+    List<Map> list =
+        await db.query('planets', where: 'name = ?', whereArgs: [planet]);
+
+    resHead = planet;
+    resImgPath = 'assets/${planet}SS.jpg';
+
+    Map data = list[0];
+
+    String complbl = 'Atmospheric';
+    if (planet == 'Moon' || planet == 'Mercury') complbl = 'Elemental';
+
+    String distlbl = 'Sun';
+    String perlbl = 'Perihelion';
+    String aplbl = 'Aphelion';
+    if (planet == 'Moon') {
+      distlbl = 'Earth';
+      perlbl = 'Perigee';
+      aplbl = 'Apogee';
+    }
+
+    String dataString = """
+      ${data['desc']}\n
+      Mass: ${data['mass']} x 10^24 kg
+      Diameter: ${data['diameter']} km
+      Avg. Density: ${data['density']} kg/m^3\n
+      Surf. Gravity: ${data['gravity']} m/s^2
+      Escape Velocity: ${data['escvel']} km/s\n
+      Surf. Pressure: ${data['press']} atm
+      Mean Temperature: ${data['temp']} °C\n
+      Rotation Period: ${data['rotper']} hours
+      Length of Day: ${data['day']} hours
+      Axial Tilt: ${data['axialtilt']} degrees\n
+      Orbital Period: ${data['orbper']} days
+      Orbital Velocity: ${data['orbvel']} km/s
+      Orbital Inclination: ${data['orbinc']} degrees
+      Orbital Eccentricity: ${data['orbecc']}\n
+      Distance ($distlbl): ${data['dist']} x 10^6 km
+      $perlbl: ${data['perhel']} x 10^6 km
+      $aplbl: ${data['aphel']} x 10^6 km\n
+      Ring System: ${data['ring']}
+      Number of Moons: ${data['moons']}\n
+      Global Magnetic Field: ${data['magfield']}\n
+      $complbl Composition:\n${data['comp']}\n
+      """;
+
+    resBody = dataString;
+    if (mounted) Navigator.pushNamed(context, '/result');
   }
 
   @override
@@ -38,7 +83,7 @@ class _PlanetariumState extends State<Planetarium> {
       return Center(
         child: GestureDetector(
             onTap: () {
-              topicSelected(text);
+              selectPlanet(text);
             },
             child: Container(
               width: screenWidth * 0.9,
@@ -86,8 +131,10 @@ class _PlanetariumState extends State<Planetarium> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               imgButton(topics[3 * page], "assets/${topics[3 * page]}.jpg"),
-              imgButton(topics[3 * page + 1], "assets/${topics[3 * page + 1]}.jpg"),
-              imgButton(topics[3 * page + 2], "assets/${topics[3 * page + 2]}.jpg"),
+              imgButton(
+                  topics[3 * page + 1], "assets/${topics[3 * page + 1]}.jpg"),
+              imgButton(
+                  topics[3 * page + 2], "assets/${topics[3 * page + 2]}.jpg"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[

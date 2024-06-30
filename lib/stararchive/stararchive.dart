@@ -34,6 +34,34 @@ class _StarArchiveState extends State<StarArchive> {
     }
   }
 
+  String format(double num) {
+    String returnNum = num.toString();
+    if (num > 1e6) {
+      returnNum = num.toStringAsExponential(2);
+    } else if (num < 1e-5) {
+      returnNum = num.toStringAsExponential(2);
+    } else if (returnNum.contains('.') &&
+        num > 1 &&
+        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
+            4) {
+      returnNum = returnNum.substring(0, returnNum.indexOf('.') + 3);
+    } else if (returnNum.contains('.') &&
+        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
+            6) {
+      returnNum = num.toStringAsFixed(5);
+    } else if (num % 1 == 0) {
+      returnNum = num.toStringAsFixed(0);
+    }
+    if (returnNum.contains('e+')) {
+      returnNum = returnNum.replaceAll('e+', ' x 10^');
+    } else if (returnNum.contains('e-')) {
+      returnNum = returnNum.replaceAll('e-', ' x 10^-');
+    } else if (returnNum.contains('e')) {
+      returnNum = returnNum.replaceAll('e', ' x 10^');
+    }
+    return returnNum;
+  }
+
   void setData(String name) async {
     List<Map> list =
         await db.query('stars', where: 'name = ?', whereArgs: [name]);
@@ -61,9 +89,8 @@ class _StarArchiveState extends State<StarArchive> {
         pow(((lum * 3.828e26) / (4 * 3.14 * 5.67e-8 * pow(temp, 4))), 0.5);
     num massinkg = mass * 1.989e30;
     double diameter = (2 * radiusinm / 1000);
-    double area = (1.256e-5 * pow(radiusinm, 2));
     double volume = (4.187e-9 * pow(radiusinm, 3));
-    double density = (massinkg * 1e-12) / volume;
+    double density = (massinkg * 1e-9) / volume;
     double gravity = (6.67e-11 * massinkg) / pow(radiusinm, 2);
     double escvel = pow((2 * 6.67e-11 * massinkg / radiusinm), 0.5) / 1000;
     double absmag = mag + 5 - 5 * (log(dist / 3.2616) / log(10));
@@ -157,12 +184,10 @@ class _StarArchiveState extends State<StarArchive> {
       Spectral Class: Class $specclass
       Conventional Color: $color\n
       Mass: ${format(mass)} M☉
-      Avg. Density: ${format(density)} g/cm³
+      Diameter: ${format(diameter)} km
+      Avg. Density: ${format(density)} kg/m³\n
       Surf. Gravity: ${format(gravity)} m/s²
       Escape Velocity: ${format(escvel)} km/s\n
-      Diameter: ${format(diameter)} km
-      Surf. Area: ${format(area)} km²
-      Volume: ${format(volume)} km³\n
       Apparent Magnitude: ${mag.toStringAsFixed(2)}
       Absolute Magnitude: ${absmag.toStringAsFixed(2)}
       Distance From Earth: ${format(dist)} ly\n
