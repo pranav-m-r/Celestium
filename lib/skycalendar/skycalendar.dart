@@ -29,17 +29,17 @@ class _SkyCalendarState extends State<SkyCalendar> {
       return SizedBox(height: padding * 0.8 * 2);
     }
 
-    SizedBox uiButton(void Function() fxn, String txt, Widget icon) {
+    SizedBox uiButton(String txt) {
       double y = 0.09;
       return SizedBox(
         height: screenHeight * y,
         child: ElevatedButton(
           style: btnStyle,
-          onPressed: fxn,
+          onPressed: () {showEvents(txt);},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              icon,
+              const Icon(Icons.calendar_month, size: 27),
               Text(
                 txt,
                 style: const TextStyle(fontSize: 25),
@@ -65,35 +65,21 @@ class _SkyCalendarState extends State<SkyCalendar> {
             spacing(),
             text(20, 'Upcoming Events:'),
             dspacing(),
-            uiButton(() {
-              showEvents('2024');
-            }, '2024', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2024'),
             spacing(),
-            uiButton(() {
-              showEvents('2025');
-            }, '2025', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2025'),
             spacing(),
-            uiButton(() {
-              showEvents('2026');
-            }, '2026', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2026'),
             spacing(),
-            uiButton(() {
-              showEvents('2027');
-            }, '2027', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2027'),
             dspacing(),
             text(20, 'Past Events:'),
             dspacing(),
-            uiButton(() {
-              showEvents('2023');
-            }, '2023', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2023'),
             spacing(),
-            uiButton(() {
-              showEvents('2022');
-            }, '2022', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2022'),
             spacing(),
-            uiButton(() {
-              showEvents('2021');
-            }, '2021', const Icon(Icons.calendar_month_outlined, size: 27)),
+            uiButton('2021'),
             spacing(),
           ],
         ),

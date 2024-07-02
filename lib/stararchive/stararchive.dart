@@ -34,34 +34,6 @@ class _StarArchiveState extends State<StarArchive> {
     }
   }
 
-  String format(double num) {
-    String returnNum = num.toString();
-    if (num > 1e6) {
-      returnNum = num.toStringAsExponential(2);
-    } else if (num < 1e-5) {
-      returnNum = num.toStringAsExponential(2);
-    } else if (returnNum.contains('.') &&
-        num > 1 &&
-        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
-            4) {
-      returnNum = returnNum.substring(0, returnNum.indexOf('.') + 3);
-    } else if (returnNum.contains('.') &&
-        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
-            6) {
-      returnNum = num.toStringAsFixed(5);
-    } else if (num % 1 == 0) {
-      returnNum = num.toStringAsFixed(0);
-    }
-    if (returnNum.contains('e+')) {
-      returnNum = returnNum.replaceAll('e+', ' x 10^');
-    } else if (returnNum.contains('e-')) {
-      returnNum = returnNum.replaceAll('e-', ' x 10^-');
-    } else if (returnNum.contains('e')) {
-      returnNum = returnNum.replaceAll('e', ' x 10^');
-    }
-    return returnNum;
-  }
-
   void setData(String name) async {
     List<Map> list =
         await db.query('stars', where: 'name = ?', whereArgs: [name]);
@@ -224,7 +196,7 @@ class _StarArchiveState extends State<StarArchive> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    Padding uiButton(void Function() fxn, String txt, Widget icon) {
+    Padding uiButton(void Function() fxn, String txt, IconData icon) {
       double y = 0.09;
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
@@ -236,7 +208,7 @@ class _StarArchiveState extends State<StarArchive> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                icon,
+                Icon(icon, size: 27),
                 Text(
                   txt,
                   style: const TextStyle(fontSize: 25),
@@ -320,17 +292,17 @@ class _StarArchiveState extends State<StarArchive> {
             starDropdown(starController, stars),
             dspacing(),
             uiButton(
-                selectStar, 'Select Star', const Icon(Icons.search, size: 27)),
+                selectStar, 'Select Star', Icons.search),
             dspacing(),
             text(20, 'Want to create your own star?'),
             dspacing(),
             uiButton(
-                createStar, 'Create Star', const Icon(Icons.create, size: 27)),
+                createStar, 'Create Star', Icons.create),
             dspacing(),
             text(20, 'Want to learn about a new star?'),
             dspacing(),
             uiButton(
-                randomStar, 'Random Star', const Icon(Icons.casino, size: 27)),
+                randomStar, 'Random Star', Icons.casino),
             spacing(),
           ],
         ),

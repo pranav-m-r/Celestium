@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
 import 'package:astroquest/globals.dart';
 import 'resvar.dart';
 
@@ -10,7 +11,42 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  void textToSpeech(String text) {}
+  late FlutterTts flutterTts;
+  IconData icon = Icons.volume_up_rounded;
+
+  @override
+  initState() {
+    super.initState();
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    flutterTts.stop();
+  }
+
+  void textToSpeech(String text) async {
+    if (icon == Icons.volume_up_rounded) {
+      setState(() {
+        icon = Icons.volume_off_rounded;
+      });
+      if (text.isNotEmpty) {
+        await flutterTts.awaitSpeakCompletion(true);
+        await flutterTts.speak(text);
+        if (mounted) {
+          setState(() {
+            icon = Icons.volume_up_rounded;
+          });
+        }
+      }
+    } else {
+      setState(() {
+        icon = Icons.volume_up_rounded;
+      });
+      await flutterTts.stop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,23 +92,23 @@ class _ResultPageState extends State<ResultPage> {
                 height: screenWidth * 0.2,
                 width: screenWidth * 0.2,
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.volume_up_rounded,
-                  ),
+                  icon: Icon(icon),
                   style: pageBtnStyle,
                   iconSize: 50,
                   onPressed: () {
-                    textToSpeech(resBody);
+                    textToSpeech(resBody
+                        .split('\n')[0]
+                        .replaceAll(RegExp('\\(.*?\\)'), ''));
                   },
                 ),
               ),
             ),
             dspacing(),
             Text(
-                resBody,
-                textAlign: TextAlign.left,
-                style: const TextStyle(fontSize: 20, color: Colors.white),
-              ),
+              resBody,
+              textAlign: TextAlign.left,
+              style: const TextStyle(fontSize: 20, color: Colors.white),
+            ),
             spacing(),
           ],
         ),

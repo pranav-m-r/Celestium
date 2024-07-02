@@ -63,6 +63,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> preloadImgs = [
+    'Portrait',
+    'universe',
+    'bigbang',
+    'M83',
+    'Mercury',
+    'Venus',
+    'Earth',
+    'BinaryStar',
+    'BlueSupergiant',
+    'transit',
+    'BrightGiant',
+    'RedGiant',
+    'WhiteDwarf',
+    'BlueMainSequence',
+    'RedDwarf',
+    'YellowMainSequence',
+    'MercurySS',
+    'VenusSS',
+    'EarthSS',
+    'MoonSS',
+    'MarsSS',
+    'JupiterSS',
+    'SaturnSS',
+    'UranusSS',
+    'NeptuneSS',
+    'le',
+    'se',
+    'asteroids',
+    'Comet',
+  ];
+
   void initDatabase() async {
     String databasesPath = await getDatabasesPath();
     String path = "${databasesPath}database.db";
@@ -78,6 +110,14 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     initDatabase();
+  }
+
+  @override
+  void didChangeDependencies() {
+    for (int i = 0; i < preloadImgs.length; i++) {
+      precacheImage(Image.asset('assets/${preloadImgs[i]}.jpg').image, context);
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -128,7 +168,6 @@ class _HomePageState extends State<HomePage> {
           surfaceTintColor: Colors.transparent,
           title: const Text('Astro Quest'),
           centerTitle: true,
-          leading: const FlutterLogo(),
         ),
         body: ListView(
           padding: EdgeInsets.all(padding),
@@ -143,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             spacing(),
             routeButton('/skycalendar', 'Sky Calendar', Icons.calendar_month),
             spacing(),
-            routeButton('/spacequiz', 'Space Quizzer', Icons.quiz),
+            routeButton('/spacequiz', 'Space Quizzer', Icons.contact_support),
           ],
         ),
       ),

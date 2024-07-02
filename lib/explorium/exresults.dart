@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
 import 'package:astroquest/globals.dart';
 
 String expResHead = 'Explorium';
@@ -17,7 +18,40 @@ class ExpResult extends StatefulWidget {
 }
 
 class _ExpResultState extends State<ExpResult> {
-  void textToSpeech(String text) {}
+  late FlutterTts flutterTts;
+  IconData icon = Icons.volume_up_rounded;
+
+  @override
+  initState() {
+    super.initState();
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    flutterTts.stop();
+  }
+
+  void textToSpeech(String text) async {
+    if (icon == Icons.volume_up_rounded) {
+      setState(() {
+        icon = Icons.volume_off_rounded;
+      });
+      await flutterTts.awaitSpeakCompletion(true);
+      await flutterTts.speak(text);
+      if (mounted) {
+        setState(() {
+          icon = Icons.volume_up_rounded;
+        });
+      }
+    } else {
+      setState(() {
+        icon = Icons.volume_up_rounded;
+      });
+      await flutterTts.stop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +65,14 @@ class _ExpResultState extends State<ExpResult> {
 
     SizedBox dspacing() {
       return SizedBox(height: padding * 0.8 * 2);
+    }
+
+    Text resText(txt) {
+      return Text(
+        txt,
+        textAlign: TextAlign.left,
+        style: const TextStyle(fontSize: 20, color: Colors.white),
+      );
     }
 
     Container image(String path) {
@@ -65,27 +107,26 @@ class _ExpResultState extends State<ExpResult> {
                 height: screenWidth * 0.2,
                 width: screenWidth * 0.2,
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.volume_up_rounded,
-                  ),
+                  icon: Icon(icon),
                   style: pageBtnStyle,
                   iconSize: 50,
                   onPressed: () {
-                    textToSpeech("$expResBody1\n$expResBody2\n$expResBody3");
+                    textToSpeech(("$expResBody1 $expResBody2 $expResBody3")
+                        .replaceAll(RegExp('\\(.*?\\)'), ''));
                   },
                 ),
               ),
             ),
             dspacing(),
-            text(20, expResBody1),
+            resText(expResBody1),
             dspacing(),
             image(expImgPath2),
             dspacing(),
-            text(20, expResBody2),
+            resText(expResBody2),
             dspacing(),
             image(expImgPath3),
             dspacing(),
-            text(20, expResBody3),
+            resText(expResBody3),
             spacing(),
           ],
         ),

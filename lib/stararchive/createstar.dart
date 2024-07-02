@@ -16,34 +16,6 @@ class _CreateStarState extends State<CreateStar> {
   final lumController = TextEditingController();
   final tempController = TextEditingController();
 
-  String format(double num) {
-    String returnNum = num.toString();
-    if (num > 1e6) {
-      returnNum = num.toStringAsExponential(2);
-    } else if (num < 1e-5) {
-      returnNum = num.toStringAsExponential(2);
-    } else if (returnNum.contains('.') &&
-        num > 1 &&
-        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
-            4) {
-      returnNum = returnNum.substring(0, returnNum.indexOf('.') + 3);
-    } else if (returnNum.contains('.') &&
-        returnNum.substring(returnNum.indexOf('.'), returnNum.length).length >
-            6) {
-      returnNum = num.toStringAsFixed(5);
-    } else if (num % 1 == 0) {
-      returnNum = num.toStringAsFixed(0);
-    }
-    if (returnNum.contains('e+')) {
-      returnNum = returnNum.replaceAll('e+', ' x 10^');
-    } else if (returnNum.contains('e-')) {
-      returnNum = returnNum.replaceAll('e-', ' x 10^-');
-    } else if (returnNum.contains('e')) {
-      returnNum = returnNum.replaceAll('e', ' x 10^');
-    }
-    return returnNum;
-  }
-
   void setData() {
     resHead = 'Star Created';
 
@@ -192,31 +164,6 @@ class _CreateStarState extends State<CreateStar> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    SizedBox uiButton(void Function() fxn, String txt, Widget icon) {
-      double y = 0.09;
-      return SizedBox(
-        height: screenHeight * y,
-        child: ElevatedButton(
-          style: btnStyle,
-          onPressed: fxn,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              icon,
-              Text(
-                txt,
-                style: const TextStyle(fontSize: 25),
-              ),
-              const Icon(
-                Icons.arrow_forward,
-                size: 27,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
     Padding textInput(TextEditingController ctr, String hint) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.12),
@@ -279,8 +226,27 @@ class _CreateStarState extends State<CreateStar> {
             dspacing(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-              child: uiButton(
-                  setData, 'Create Star', const Icon(Icons.create, size: 27)),
+              child: SizedBox(
+                height: screenHeight * 0.09,
+                child: ElevatedButton(
+                  style: btnStyle,
+                  onPressed: setData,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(Icons.create, size: 27),
+                      Text(
+                        'Create Star',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 27,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             spacing(),
           ],

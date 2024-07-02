@@ -83,29 +83,34 @@ class _EventOptionsState extends State<EventOptions> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: appBar('Sky Calendar'),
-        body: ListView.builder(
-          itemCount: events.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: padding * 0.5, vertical: padding * 0.3),
-              child: GestureDetector(
-                onTap: () {
-                  eventResult(events[index]);
-                },
-                child: ListTile(
-                  title:
-                      Text(events[index], style: const TextStyle(fontSize: 18)),
-                  textColor: txtColor,
-                  tileColor: Colors.black26,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(color: txtColor, width: 0.5),
+        body: Material(
+          color: Colors.transparent,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          child: ListView.builder(
+            itemCount: events.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: padding * 0.5, vertical: padding * 0.3),
+                child: GestureDetector(
+                  onTap: () {
+                    eventResult(events[index]);
+                  },
+                  child: ListTile(
+                    title: Text(events[index],
+                        style: const TextStyle(fontSize: 18)),
+                    textColor: Colors.white,
+                    tileColor: Colors.black26,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(color: txtColor, width: 0.5),
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

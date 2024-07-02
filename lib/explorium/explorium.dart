@@ -11,34 +11,69 @@ class Explorium extends StatefulWidget {
 
 class _ExploriumState extends State<Explorium> {
   PageController pageController = PageController();
+  int currentPage = 0;
 
-  void topicSelected(String text) {
+  List<String> topics = [
+    'The Universe',
+    'Big Bang',
+    'Galaxies',
+    'Star Birth',
+    'Nebulae',
+    'Star Clusters',
+    'Star Death',
+    'Black Holes',
+    'Neutron Stars',
+    'The Sun',
+    'The Earth',
+    'The Moon',
+    'Transits',
+    'Solar Eclipses',
+    'Lunar Eclipses',
+    'Solar Activity',
+    'Aurorae',
+    'Exoplanets'
+  ];
+  List<String> images = [
+    'universe',
+    'bigbang',
+    'M83',
+    'M8',
+    'M43',
+    'M45',
+    'M1',
+    'bh1',
+    'neutronstars',
+    'RedGiant',
+    'EarthSS',
+    'MoonSS',
+    'transit2',
+    'se',
+    'le',
+    'prominence',
+    'aura',
+    'exoplanets'
+  ];
+
+  void topicSelected(String text) async {
     expResHead = text;
-    Navigator.pushNamed(context, '/exresult');
+    List<Map> list = await db.query('explorium',
+        columns: ['para1', 'para2', 'para3', 'img1', 'img2', 'img3'],
+        where: 'topic = ?',
+        whereArgs: [text]);
+    expResBody1 = list[0]['para1'];
+    expResBody2 = list[0]['para2'];
+    expResBody3 = list[0]['para3'];
+    expImgPath1 = "assets/${list[0]['img1']}.jpg";
+    expImgPath2 = "assets/${list[0]['img2']}.jpg";
+    expImgPath3 = "assets/${list[0]['img3']}.jpg";
+    if (mounted) Navigator.pushNamed(context, '/exresult');
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    List<String> topics = [
-      'Big Bang',
-      'Universe',
-      'Star Birth',
-      'Nebulae',
-      'Star Death',
-      'Galaxies',
-    ];
-
-    List<String> images = [
-      'assets/bigbang.jpg',
-      'assets/universe.jpg',
-      'assets/M8.jpg',
-      'assets/M43.jpg',
-      'assets/M82.jpg',
-      'assets/M104.jpg',
-    ];
+    double padding = screenWidth * 0.05;
 
     Center imgButton(String text, String image) {
       return Center(
@@ -57,7 +92,7 @@ class _ExploriumState extends State<Explorium> {
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.4), BlendMode.darken),
-                  image: AssetImage(image),
+                  image: AssetImage("assets/$image.jpg"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -82,66 +117,94 @@ class _ExploriumState extends State<Explorium> {
       );
     }
 
-    Container expPage(int page) {
-      return Container(
-        decoration: background,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: appBar('Explorium'),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              imgButton(topics[3 * page], images[3 * page]),
-              imgButton(topics[3 * page + 1], images[3 * page + 1]),
-              imgButton(topics[3 * page + 2], images[3 * page + 2]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                    ),
-                    style: pageBtnStyle,
-                    iconSize: 30,
-                    onPressed: () {
-                      pageController.previousPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                  ),
-                  Text(
-                    'Page ${page + 1}',
-                    style: const TextStyle(fontSize: 20, color: txtColor),
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward,
-                    ),
-                    style: pageBtnStyle,
-                    iconSize: 30,
-                    onPressed: () {
-                      pageController.nextPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+    Column expPage(int page) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          imgButton(topics[3 * page], images[3 * page]),
+          imgButton(topics[3 * page + 1], images[3 * page + 1]),
+          imgButton(topics[3 * page + 2], images[3 * page + 2]),
+        ],
       );
     }
 
-    return PageView(
-      scrollDirection: Axis.horizontal,
-      controller: pageController,
-      children: <Widget>[
-        expPage(0),
-        expPage(1),
-      ],
-    );
+    return Container(
+        decoration: background,
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: appBar('Explorium'),
+            body: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    controller: pageController,
+                    onPageChanged: (value) {
+                      setState(() {
+                        currentPage = value;
+                      });
+                    },
+                    children: <Widget>[
+                      expPage(0),
+                      expPage(1),
+                      expPage(2),
+                      expPage(3),
+                      expPage(4),
+                      expPage(5),
+                    ],
+                  ),
+                ),
+                SizedBox(height: padding * 0.4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                      ),
+                      style: pageBtnStyle,
+                      iconSize: 30,
+                      onPressed: () {
+                        if (pageController.page == 0) {
+                          pageController.animateToPage(5,
+                              duration: const Duration(milliseconds: 1250),
+                              curve: Curves.easeInOut);
+                        } else {
+                          pageController.previousPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                    ),
+                    Text(
+                      'Page ${currentPage + 1}',
+                      style: const TextStyle(fontSize: 20, color: txtColor),
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_forward,
+                      ),
+                      style: pageBtnStyle,
+                      iconSize: 30,
+                      onPressed: () {
+                        if (pageController.page == 5) {
+                          pageController.animateToPage(0,
+                              duration: const Duration(milliseconds: 1250),
+                              curve: Curves.easeInOut);
+                        } else {
+                          pageController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: padding * 0.8),
+              ],
+            )));
   }
 }

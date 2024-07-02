@@ -11,6 +11,7 @@ class Planetarium extends StatefulWidget {
 
 class _PlanetariumState extends State<Planetarium> {
   PageController pageController = PageController();
+  int currentPage = 0;
 
   void selectPlanet(String planet) async {
     List<Map> list =
@@ -66,6 +67,7 @@ class _PlanetariumState extends State<Planetarium> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    double padding = screenWidth * 0.05;
 
     List<String> topics = [
       'Mercury',
@@ -121,69 +123,91 @@ class _PlanetariumState extends State<Planetarium> {
       );
     }
 
-    Container plPage(int page) {
-      return Container(
-        decoration: background,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: appBar('Planetarium'),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              imgButton(topics[3 * page], "assets/${topics[3 * page]}.jpg"),
-              imgButton(
-                  topics[3 * page + 1], "assets/${topics[3 * page + 1]}.jpg"),
-              imgButton(
-                  topics[3 * page + 2], "assets/${topics[3 * page + 2]}.jpg"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                    ),
-                    style: pageBtnStyle,
-                    iconSize: 30,
-                    onPressed: () {
-                      pageController.previousPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                  ),
-                  Text(
-                    'Page ${page + 1}',
-                    style: const TextStyle(fontSize: 20, color: txtColor),
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward,
-                    ),
-                    style: pageBtnStyle,
-                    iconSize: 30,
-                    onPressed: () {
-                      pageController.nextPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+    Column plPage(int page) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          imgButton(topics[3 * page], "assets/${topics[3 * page]}.jpg"),
+          imgButton(topics[3 * page + 1], "assets/${topics[3 * page + 1]}.jpg"),
+          imgButton(topics[3 * page + 2], "assets/${topics[3 * page + 2]}.jpg"),
+        ],
       );
     }
 
-    return PageView(
-      scrollDirection: Axis.horizontal,
-      controller: pageController,
-      children: <Widget>[
-        plPage(0),
-        plPage(1),
-        plPage(2),
-      ],
-    );
+    return Container(
+        decoration: background,
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: appBar('Planetarium'),
+            body: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    controller: pageController,
+                    onPageChanged: (value) {
+                      setState(() {
+                        currentPage = value;
+                      });
+                    },
+                    children: <Widget>[
+                      plPage(0),
+                      plPage(1),
+                      plPage(2),
+                    ],
+                  ),
+                ),
+                SizedBox(height: padding * 0.4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                      ),
+                      style: pageBtnStyle,
+                      iconSize: 30,
+                      onPressed: () {
+                        if (pageController.page == 0) {
+                          pageController.animateToPage(2,
+                              duration: const Duration(milliseconds: 750),
+                              curve: Curves.easeInOut);
+                        } else {
+                          pageController.previousPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                    ),
+                    Text(
+                      'Page ${currentPage + 1}',
+                      style: const TextStyle(fontSize: 20, color: txtColor),
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_forward,
+                      ),
+                      style: pageBtnStyle,
+                      iconSize: 30,
+                      onPressed: () {
+                        if (pageController.page == 2) {
+                          pageController.animateToPage(0,
+                              duration: const Duration(milliseconds: 750),
+                              curve: Curves.easeInOut);
+                        } else {
+                          pageController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: padding * 0.8),
+              ],
+            )));
   }
 }

@@ -22,17 +22,17 @@ class _SpaceQuizState extends State<SpaceQuiz> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    SizedBox uiButton(void Function() fxn, String txt, Widget icon) {
+    SizedBox uiButton(String txt) {
       double y = 0.09;
       return SizedBox(
           height: screenHeight * y,
           child: ElevatedButton(
             style: btnStyle,
-            onPressed: fxn,
+            onPressed: () {startQuiz(txt);},
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                icon,
+                const Icon(Icons.contact_support, size: 27),
                 Text(
                   txt,
                   style: const TextStyle(fontSize: 25),
@@ -66,53 +66,29 @@ class _SpaceQuizState extends State<SpaceQuiz> {
             spacing(),
             text(20, 'Choose a topic:'),
             dspacing(),
-            uiButton(() {
-              startQuiz('Our Universe - I');
-            }, 'Our Universe - I', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Our Universe - I'),
             spacing(),
-            uiButton(() {
-              startQuiz('Our Universe - II');
-            }, 'Our Universe - II', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Our Universe - II'),
             spacing(),
-            uiButton(() {
-              startQuiz('Life of Stars - I');
-            }, 'Life of Stars - I', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Life of Stars - I'),
             spacing(),
-            uiButton(() {
-              startQuiz('Life of Stars - II');
-            }, 'Life of Stars - II', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Life of Stars - II'),
             spacing(),
-            uiButton(() {
-              startQuiz('Extreme Stars - I');
-            }, 'Extreme Stars - I', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Extreme Stars - I'),
             spacing(),
-            uiButton(() {
-              startQuiz('Extreme Stars - II');
-            }, 'Extreme Stars - II', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Extreme Stars - II'),
             spacing(),
-            uiButton(() {
-              startQuiz('Black Holes - I');
-            }, 'Black Holes - I', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Black Holes - I'),
             spacing(),
-            uiButton(() {
-              startQuiz('Black Holes - II');
-            }, 'Black Holes - II', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Black Holes - II'),
             spacing(),
-            uiButton(() {
-              startQuiz('Light & Time - I');
-            }, 'Light & Time - I', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Light & Time - I'),
             spacing(),
-            uiButton(() {
-              startQuiz('Light & Time - II');
-            }, 'Light & Time - II', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Light & Time - II'),
             spacing(),
-            uiButton(() {
-              startQuiz('Star Clusters - I');
-            }, 'Star Clusters - I', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Star Clusters - I'),
             spacing(),
-            uiButton(() {
-              startQuiz('Star Clusters - II');
-            }, 'Star Clusters - II', const Icon(Icons.quiz_outlined, size: 27)),
+            uiButton('Star Clusters - II'),
             spacing(),
           ],
         ),

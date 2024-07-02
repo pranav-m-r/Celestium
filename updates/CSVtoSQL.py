@@ -1,7 +1,7 @@
 import csv
 import sqlite3
 
-# Tables: stars, messier
+# Tables: stars, messier, planets, explorium
 
 def csv_to_sqlite(csv_filename, db_filename):
     conn = sqlite3.connect(db_filename)
@@ -11,7 +11,7 @@ def csv_to_sqlite(csv_filename, db_filename):
         reader = csv.reader(csvfile)
         headers = next(reader)
 
-        table_name = "planets"
+        table_name = "messier"
         columns = ', '.join([f"{header} TEXT" for header in headers])
         cursor.execute(f"DROP TABLE {table_name}")
         cursor.execute(f"CREATE TABLE {table_name} ({columns})")
@@ -24,6 +24,6 @@ def csv_to_sqlite(csv_filename, db_filename):
     conn.close()
 
 
-csv_filename = 'PlanetData.csv'
+csv_filename = 'MessierData.csv'
 db_filename = 'database.db'
 csv_to_sqlite(csv_filename, db_filename)
