@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
-import 'package:astroquest/results/resvar.dart';
+
+import '../data/globals.dart';
+import '../results/resvar.dart';
 
 String selectedYear = '2024';
 List<String> events = [];

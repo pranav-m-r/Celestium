@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
-import 'package:astroquest/results/resvar.dart';
+
+import '../data/globals.dart';
+import '../results/resvar.dart';
 
 class Planetarium extends StatefulWidget {
   const Planetarium({super.key});
@@ -10,7 +11,7 @@ class Planetarium extends StatefulWidget {
 }
 
 class _PlanetariumState extends State<Planetarium> {
-  PageController pageController = PageController();
+  final pageController = PageController();
   int currentPage = 0;
 
   void selectPlanet(String planet) async {
@@ -69,7 +70,7 @@ class _PlanetariumState extends State<Planetarium> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    List<String> topics = [
+    const List<String> topics = [
       'Mercury',
       'Venus',
       'Earth',

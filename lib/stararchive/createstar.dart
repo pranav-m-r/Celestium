@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:astroquest/globals.dart';
-import 'package:astroquest/results/resvar.dart';
+
 import 'dart:math';
+
+import '../data/globals.dart';
+import '../results/resvar.dart';
 
 class CreateStar extends StatefulWidget {
   const CreateStar({super.key});
@@ -166,7 +168,7 @@ class _CreateStarState extends State<CreateStar> {
 
     Padding textInput(TextEditingController ctr, String hint) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.12),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
         child: TextField(
           controller: ctr,
           style: const TextStyle(color: Colors.white, fontSize: 18),

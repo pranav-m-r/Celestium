@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
-import 'package:astroquest/globals.dart';
-import 'package:astroquest/results/resvar.dart';
+
+import '../data/globals.dart';
+import '../results/resvar.dart';
+import 'messierdata.dart';
 
 class DeepSky extends StatefulWidget {
   const DeepSky({super.key});
@@ -11,29 +13,14 @@ class DeepSky extends StatefulWidget {
 }
 
 class _DeepSkyState extends State<DeepSky> {
-  final messierController = TextEditingController();
-  final String messierInfo =
-      "Although there are as many as one hundred billion comets in the outer regions of the solar system, prior to 1995, only around 900 had ever been discovered. This is because most comets are too dim to be detected without the proper astronomical equipment. Occasionally, however, a comet will sweep past the Sun that is bright enough to be seen during the daytime with the naked eye.\n\nOne such instance occurred in 1744. Comet Klinkenberg-Chéseaux, discovered by three amateur astronomers in late 1743, grew steadily brighter as it approached the Sun. By the end of February 1744, the comet had become the brightest object in the sky except for the Sun and Moon. The comet’s brilliance captured the interest of professional and amateur astronomers alike, including a young Charles Messier.\n\nBorn in 1730 in Badonviller, France, Messier had to give up formal education at age 11 when his father died. Soon after, he witnessed the spectacular Comet Klinkenberg-Chéseaux, which ignited his passion for astronomy. At the age of 21, Messier was hired as a draftsman for the French navy. He learned to use astronomical tools and became a skilled observer. For his efforts, Messier was eventually promoted to the chief astronomer of the Marine Observatory in Paris, where he pursued his interest in comets. He discovered over a dozen comets, earning him the nickname “Comet Ferret” from King Louis XV.\n\nIn 1758, Messier was in the process of observing one such comet when he was distracted by a cloudy object in the constellation Taurus. Upon further observation, he realized that the object could not be a comet because it was not moving across the sky. In an effort to prevent other astronomers from mistaking the object for a comet, Messier took note of it and began to catalog other comet-like “objects to avoid.”\n\nThis comet-like object that Messier observed was NGC 1952. Commonly known today as M1 (Messier 1) or the Crab Nebula, it is the first object in Messier’s Catalog of Nebulae and Star Clusters. By the time of his death in 1817, Messier had compiled a list of 103 objects in the night sky using his own observations with various telescopes and the discoveries of other astronomers.\n\nThe catalog was revised in the 20th century and now contains 110 objects. Amateur astronomers today use Messier’s catalog as a guide to some of the most interesting and detailed cosmic sights that can be viewed from the Northern Hemisphere.";
-
-  List<String> messier = [];
+  String messierSelection = '';
 
   late FlutterTts flutterTts;
   IconData icon = Icons.volume_up_rounded;
 
-  void initList() {
-    setState(() {
-      for (int i = 1; i <= 110; i++) {
-        messier.add('M$i');
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    if (messier.isEmpty) {
-      initList();
-    }
     flutterTts = FlutterTts();
   }
 
@@ -64,7 +51,7 @@ class _DeepSkyState extends State<DeepSky> {
   }
 
   void selectMessier(String name) async {
-    if (!messier.contains(messierController.text)) {
+    if (!messier.contains(name)) {
       showErrorMessage('Please select an object from the list!', context);
       return;
     }
@@ -81,7 +68,7 @@ class _DeepSkyState extends State<DeepSky> {
       Catalog ID: ${data['catalog']}
       Constellation: ${data['const']}
       """;
-    
+
     resHead = name.replaceAll('M', 'Messier ');
     resImgPath = "assets/${list[0]['img']}.jpg";
     resBody = dataString;
@@ -123,48 +110,81 @@ class _DeepSkyState extends State<DeepSky> {
       );
     }
 
-    Center catalogDropdown(TextEditingController ctr, List<String> list) {
+    Center catalogDropdown(List<String> list) {
       return Center(
-        child: DropdownMenu(
-          controller: ctr,
-          width: screenWidth * 0.66,
-          trailingIcon: const Icon(Icons.arrow_drop_down, color: txtColor),
-          selectedTrailingIcon:
-              const Icon(Icons.arrow_drop_up, color: txtColor),
-          hintText: 'Select',
-          enableFilter: true,
-          enableSearch: true,
-          requestFocusOnTap: true,
-          textStyle: const TextStyle(color: Colors.white, fontSize: 18),
-          inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(color: Colors.grey.shade300, fontSize: 18),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: txtColor, width: 0.8),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+          child: Autocomplete<String>(
+            fieldViewBuilder:
+                (context, textEditingController, focusNode, onFieldSubmitted) =>
+                    TextField(
+              controller: textEditingController,
+              focusNode: focusNode,
+              onChanged: (value) {
+                messierSelection = value;
+              },
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+              decoration: const InputDecoration(
+                hintText: 'Select',
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: txtColor, width: 0.8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: txtColor, width: 1.6),
+                ),
+                fillColor: Colors.black26,
+                filled: true,
+              ),
             ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: txtColor, width: 1.6),
-            ),
-            fillColor: Colors.black26,
-            filled: true,
+            optionsViewBuilder:
+                (context, Function(String) onSelected, options) {
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: Colors.black87,
+                  child: SizedBox(
+                    height: (options.length < 5) ? options.length * 56 : 56 * 5,
+                    width: screenWidth * 0.74,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: options.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final String option = options.elementAt(index);
+                        return ListTile(
+                          title: Text(option,
+                              style: const TextStyle(color: Colors.white)),
+                          onTap: () {
+                            onSelected(option);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
+            optionsBuilder: (TextEditingValue textEditingValue) {
+              if (textEditingValue.text == '') {
+                return const Iterable<String>.empty();
+              }
+              return list.where((String option) {
+                return option
+                    .toLowerCase()
+                    .contains(textEditingValue.text.toLowerCase());
+              });
+            },
+            onSelected: (String selection) {
+              messierSelection = selection;
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
           ),
-          menuStyle: const MenuStyle(
-            backgroundColor:
-                WidgetStatePropertyAll(Color.fromARGB(240, 0, 0, 0)),
-            shadowColor: WidgetStatePropertyAll(Colors.transparent),
-            surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
-          ),
-          menuHeight: screenHeight * 0.3,
-          dropdownMenuEntries:
-              list.map<DropdownMenuEntry<String>>((String value) {
-            return DropdownMenuEntry<String>(
-              value: value,
-              label: value,
-              style: dropdownStyle,
-            );
-          }).toList(),
-          onSelected: (value) {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
         ),
       );
     }
@@ -188,10 +208,10 @@ class _DeepSkyState extends State<DeepSky> {
             spacing(),
             text(20, 'Search the Messier catalog:'),
             dspacing(),
-            catalogDropdown(messierController, messier),
+            catalogDropdown(messier),
             dspacing(),
             uiButton(() {
-              selectMessier(messierController.text);
+              selectMessier(messierSelection);
             }, 'Select Object'),
             dspacing(),
             spacing(),
@@ -226,10 +246,10 @@ class _DeepSkyState extends State<DeepSky> {
               ),
             ),
             dspacing(),
-            Text(
+            const Text(
               messierInfo,
               textAlign: TextAlign.left,
-              style: const TextStyle(fontSize: 20, color: Colors.white),
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
             spacing(),
           ],

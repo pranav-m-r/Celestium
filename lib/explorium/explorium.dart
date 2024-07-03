@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
+
+import '../data/globals.dart';
 import 'exresults.dart';
+import 'expdata.dart';
 
 class Explorium extends StatefulWidget {
   const Explorium({super.key});
@@ -10,49 +12,8 @@ class Explorium extends StatefulWidget {
 }
 
 class _ExploriumState extends State<Explorium> {
-  PageController pageController = PageController();
+  final pageController = PageController();
   int currentPage = 0;
-
-  List<String> topics = [
-    'The Universe',
-    'Big Bang',
-    'Galaxies',
-    'Star Birth',
-    'Nebulae',
-    'Star Clusters',
-    'Star Death',
-    'Black Holes',
-    'Neutron Stars',
-    'The Sun',
-    'The Earth',
-    'The Moon',
-    'Transits',
-    'Solar Eclipses',
-    'Lunar Eclipses',
-    'Solar Activity',
-    'Aurorae',
-    'Exoplanets'
-  ];
-  List<String> images = [
-    'universe',
-    'bigbang',
-    'M83',
-    'M8',
-    'M43',
-    'M45',
-    'M1',
-    'bh1',
-    'neutronstars',
-    'RedGiant',
-    'EarthSS',
-    'MoonSS',
-    'transit2',
-    'se',
-    'le',
-    'prominence',
-    'aura',
-    'exoplanets'
-  ];
 
   void topicSelected(String text) async {
     expResHead = text;

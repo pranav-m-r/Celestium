@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
-import 'package:astroquest/globals.dart';
+
+import '../data/globals.dart';
 import 'resvar.dart';
 
 class ResultPage extends StatefulWidget {

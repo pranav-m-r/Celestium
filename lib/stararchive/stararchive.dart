@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
-import 'package:astroquest/results/resvar.dart';
+
 import 'dart:math';
+
+import '../data/globals.dart';
+import '../results/resvar.dart';
 
 class StarArchive extends StatefulWidget {
   const StarArchive({super.key});
@@ -11,10 +13,10 @@ class StarArchive extends StatefulWidget {
 }
 
 class _StarArchiveState extends State<StarArchive> {
-  final starController = TextEditingController();
-  final random = Random();
-
+  String starSelection = '';
   List<String> stars = [];
+
+  final random = Random();
 
   void initList() async {
     List<Map> list =
@@ -173,11 +175,11 @@ class _StarArchiveState extends State<StarArchive> {
   }
 
   void selectStar() {
-    if (!stars.contains(starController.text)) {
+    if (!stars.contains(starSelection)) {
       showErrorMessage('Please select a star from the list!', context);
       return;
     }
-    setData(starController.text);
+    setData(starSelection);
   }
 
   void randomStar() {
@@ -224,48 +226,81 @@ class _StarArchiveState extends State<StarArchive> {
       );
     }
 
-    Center starDropdown(TextEditingController ctr, List<String> list) {
+    Center starDropdown(List<String> list) {
       return Center(
-        child: DropdownMenu(
-          controller: ctr,
-          width: screenWidth * 0.66,
-          trailingIcon: const Icon(Icons.arrow_drop_down, color: txtColor),
-          selectedTrailingIcon:
-              const Icon(Icons.arrow_drop_up, color: txtColor),
-          hintText: 'Select',
-          enableFilter: true,
-          enableSearch: true,
-          requestFocusOnTap: true,
-          textStyle: const TextStyle(color: Colors.white, fontSize: 18),
-          inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(color: Colors.grey.shade300, fontSize: 18),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: txtColor, width: 0.8),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+          child: Autocomplete<String>(
+            fieldViewBuilder:
+                (context, textEditingController, focusNode, onFieldSubmitted) =>
+                    TextField(
+              controller: textEditingController,
+              focusNode: focusNode,
+              onChanged: (value) {
+                starSelection = value;
+              },
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+              decoration: const InputDecoration(
+                hintText: 'Select',
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: txtColor, width: 0.8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: txtColor, width: 1.6),
+                ),
+                fillColor: Colors.black26,
+                filled: true,
+              ),
             ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: txtColor, width: 1.6),
-            ),
-            fillColor: Colors.black26,
-            filled: true,
+            optionsViewBuilder:
+                (context, Function(String) onSelected, options) {
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: Colors.black87,
+                  child: SizedBox(
+                    height: (options.length < 5) ? options.length * 56 : 56 * 5,
+                    width: screenWidth * 0.74,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: options.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final String option = options.elementAt(index);
+                        return ListTile(
+                          title: Text(option,
+                              style: const TextStyle(color: Colors.white)),
+                          onTap: () {
+                            onSelected(option);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
+            optionsBuilder: (TextEditingValue textEditingValue) {
+              if (textEditingValue.text == '') {
+                return const Iterable<String>.empty();
+              }
+              return list.where((String option) {
+                return option
+                    .toLowerCase()
+                    .contains(textEditingValue.text.toLowerCase());
+              });
+            },
+            onSelected: (String selection) {
+              starSelection = selection;
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
           ),
-          menuStyle: const MenuStyle(
-            backgroundColor:
-                WidgetStatePropertyAll(Color.fromARGB(240, 0, 0, 0)),
-            shadowColor: WidgetStatePropertyAll(Colors.transparent),
-            surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
-          ),
-          menuHeight: screenHeight * 0.3,
-          dropdownMenuEntries:
-              list.map<DropdownMenuEntry<String>>((String value) {
-            return DropdownMenuEntry<String>(
-              value: value,
-              label: value,
-              style: dropdownStyle,
-            );
-          }).toList(),
-          onSelected: (value) {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
         ),
       );
     }
@@ -289,20 +324,17 @@ class _StarArchiveState extends State<StarArchive> {
             spacing(),
             text(20, 'Want data on a specific star?'),
             dspacing(),
-            starDropdown(starController, stars),
+            starDropdown(stars),
             dspacing(),
-            uiButton(
-                selectStar, 'Select Star', Icons.search),
+            uiButton(selectStar, 'Select Star', Icons.search),
             dspacing(),
             text(20, 'Want to create your own star?'),
             dspacing(),
-            uiButton(
-                createStar, 'Create Star', Icons.create),
+            uiButton(createStar, 'Create Star', Icons.create),
             dspacing(),
             text(20, 'Want to learn about a new star?'),
             dspacing(),
-            uiButton(
-                randomStar, 'Random Star', Icons.casino),
+            uiButton(randomStar, 'Random Star', Icons.casino),
             spacing(),
           ],
         ),

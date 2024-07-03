@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
+
+import '../data/globals.dart';
 import 'eventlist.dart' show selectedYear;
 
 class SkyCalendar extends StatefulWidget {
@@ -35,7 +36,9 @@ class _SkyCalendarState extends State<SkyCalendar> {
         height: screenHeight * y,
         child: ElevatedButton(
           style: btnStyle,
-          onPressed: () {showEvents(txt);},
+          onPressed: () {
+            showEvents(txt);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

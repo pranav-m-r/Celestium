@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
+
+import '../data/globals.dart';
 import 'quizpage.dart' show quizTopic;
 
 class SpaceQuiz extends StatefulWidget {
@@ -10,7 +11,6 @@ class SpaceQuiz extends StatefulWidget {
 }
 
 class _SpaceQuizState extends State<SpaceQuiz> {
-
   void startQuiz(String topic) {
     quizTopic = topic;
     Navigator.pushNamed(context, '/quizscreen');
@@ -25,26 +25,28 @@ class _SpaceQuizState extends State<SpaceQuiz> {
     SizedBox uiButton(String txt) {
       double y = 0.09;
       return SizedBox(
-          height: screenHeight * y,
-          child: ElevatedButton(
-            style: btnStyle,
-            onPressed: () {startQuiz(txt);},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Icon(Icons.contact_support, size: 27),
-                Text(
-                  txt,
-                  style: const TextStyle(fontSize: 25),
-                ),
-                const Icon(
-                  Icons.arrow_forward,
-                  size: 27,
-                ),
-              ],
-            ),
+        height: screenHeight * y,
+        child: ElevatedButton(
+          style: btnStyle,
+          onPressed: () {
+            startQuiz(txt);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Icon(Icons.contact_support, size: 27),
+              Text(
+                txt,
+                style: const TextStyle(fontSize: 25),
+              ),
+              const Icon(
+                Icons.arrow_forward,
+                size: 27,
+              ),
+            ],
           ),
-        );
+        ),
+      );
     }
 
     SizedBox spacing() {

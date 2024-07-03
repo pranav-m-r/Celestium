@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:astroquest/globals.dart';
+
+import '../data/globals.dart';
 import 'quizdata.dart';
 
-String quizTopic = 'Quiz Page';
+String quizTopic = 'Our Universe - I';
 
 class Question {
   final String text;
@@ -36,7 +37,7 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  PageController controller = PageController();
+  final controller = PageController();
 
   int qno = 1;
   int score = 0;
@@ -124,7 +125,9 @@ class _QuizScreenState extends State<QuizScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                (qno < questions.length) ? 'Next Question' : 'Score: $score out of ${questions.length}',
+                (qno < questions.length)
+                    ? 'Next Question'
+                    : 'Score: $score out of ${questions.length}',
                 style: const TextStyle(fontSize: 25),
               ),
               (qno < questions.length)

@@ -3,9 +3,9 @@ import 'package:sqflite/sqflite.dart' show Database;
 
 String version = 'Unknown';
 
-const txtColor = Color.fromARGB(255, 225, 200, 255);
-
 late Database db;
+
+const txtColor = Color.fromARGB(255, 225, 200, 255);
 
 BoxDecoration background = const BoxDecoration(
     image: DecorationImage(
