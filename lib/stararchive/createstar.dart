@@ -242,8 +242,8 @@ class _CreateStarState extends State<CreateStar> {
                         style: TextStyle(fontSize: 25),
                       ),
                       Icon(
-                        Icons.arrow_forward,
-                        size: 27,
+                        Icons.arrow_forward_ios_rounded,
+                        size: 24,
                       ),
                     ],
                   ),

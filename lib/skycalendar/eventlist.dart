@@ -107,6 +107,10 @@ class _EventOptionsState extends State<EventOptions> {
                       borderRadius: BorderRadius.circular(20),
                       side: const BorderSide(color: txtColor, width: 0.5),
                     ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: txtColor,
+                    ),
                   ),
                 ),
               );

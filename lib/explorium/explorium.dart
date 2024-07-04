@@ -65,12 +65,15 @@ class _ExploriumState extends State<Explorium> {
                   children: [
                     Text(
                       text,
-                      style: const TextStyle(fontSize: 25, color: Colors.white),
+                      style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
                     SizedBox(width: screenWidth * 0.05),
                     const Icon(
-                      Icons.arrow_forward,
-                      size: 27,
+                      Icons.arrow_forward_ios_rounded,
+                      size: 24,
                       color: Colors.white,
                     ),
                   ],
@@ -124,10 +127,10 @@ class _ExploriumState extends State<Explorium> {
                   children: <Widget>[
                     IconButton(
                       icon: const Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back_rounded,
                       ),
                       style: pageBtnStyle,
-                      iconSize: 30,
+                      iconSize: 26,
                       onPressed: () {
                         if (pageController.page == 0) {
                           pageController.animateToPage(5,
@@ -147,10 +150,10 @@ class _ExploriumState extends State<Explorium> {
                     ),
                     IconButton(
                       icon: const Icon(
-                        Icons.arrow_forward,
+                        Icons.arrow_forward_rounded,
                       ),
                       style: pageBtnStyle,
-                      iconSize: 30,
+                      iconSize: 26,
                       onPressed: () {
                         if (pageController.page == 5) {
                           pageController.animateToPage(0,

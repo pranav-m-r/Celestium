@@ -40,8 +40,8 @@ class _SpaceQuizState extends State<SpaceQuiz> {
                 style: const TextStyle(fontSize: 25),
               ),
               const Icon(
-                Icons.arrow_forward,
-                size: 27,
+                Icons.arrow_forward_ios_rounded,
+                size: 24,
               ),
             ],
           ),

@@ -135,8 +135,8 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(fontSize: 26),
               ),
               const Icon(
-                Icons.arrow_forward,
-                size: 28,
+                Icons.arrow_forward_ios_rounded,
+                size: 25,
               ),
             ],
           ),

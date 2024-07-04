@@ -95,14 +95,14 @@ class _DeepSkyState extends State<DeepSky> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Icon(Icons.search, size: 27),
+                const Icon(Icons.search, size: 28),
                 Text(
                   txt,
                   style: const TextStyle(fontSize: 25),
                 ),
                 const Icon(
-                  Icons.arrow_forward,
-                  size: 27,
+                  Icons.arrow_forward_ios_rounded,
+                  size: 24,
                 ),
               ],
             ),

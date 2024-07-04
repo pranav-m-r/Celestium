@@ -131,8 +131,8 @@ class _QuizScreenState extends State<QuizScreen> {
                 style: const TextStyle(fontSize: 25),
               ),
               (qno < questions.length)
-                  ? const Icon(Icons.arrow_forward, size: 28)
-                  : const Icon(Icons.exit_to_app, size: 30),
+                  ? const Icon(Icons.arrow_forward_ios_rounded, size: 24)
+                  : const Icon(Icons.exit_to_app, size: 28),
             ],
           ),
         ),
