@@ -1,6 +1,6 @@
 String resHead = 'Result';
 String resBody = 'test';
-String resImgPath = 'assets/Portrait.jpg';
+String resImgPath = 'assets/portrait.jpg';
 
 String format(double num) {
   String returnNum = num.toString();

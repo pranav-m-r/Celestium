@@ -9,7 +9,7 @@ const txtColor = Color.fromARGB(255, 225, 200, 255);
 
 BoxDecoration background = const BoxDecoration(
     image: DecorationImage(
-        image: AssetImage('assets/Portrait.jpg'), fit: BoxFit.cover));
+        image: AssetImage('assets/portrait.jpg'), fit: BoxFit.cover));
 
 ButtonStyle btnStyle = ElevatedButton.styleFrom(
     backgroundColor: Colors.black26,

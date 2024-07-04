@@ -19,7 +19,7 @@ class _PlanetariumState extends State<Planetarium> {
         await db.query('planets', where: 'name = ?', whereArgs: [planet]);
 
     resHead = planet;
-    resImgPath = 'assets/${planet}SS.jpg';
+    resImgPath = 'assets/${planet.toLowerCase()}img.jpg';
 
     Map data = list[0];
 
@@ -128,9 +128,12 @@ class _PlanetariumState extends State<Planetarium> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          imgButton(topics[3 * page], "assets/${topics[3 * page]}.jpg"),
-          imgButton(topics[3 * page + 1], "assets/${topics[3 * page + 1]}.jpg"),
-          imgButton(topics[3 * page + 2], "assets/${topics[3 * page + 2]}.jpg"),
+          imgButton(
+              topics[3 * page], "assets/${topics[3 * page].toLowerCase()}.jpg"),
+          imgButton(topics[3 * page + 1],
+              "assets/${topics[3 * page + 1].toLowerCase()}.jpg"),
+          imgButton(topics[3 * page + 2],
+              "assets/${topics[3 * page + 2].toLowerCase()}.jpg"),
         ],
       );
     }

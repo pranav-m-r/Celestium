@@ -225,7 +225,7 @@ class _DeepSkyState extends State<DeepSky> {
                   width: 1,
                 ),
                 image: const DecorationImage(
-                  image: AssetImage('assets/Ms.jpg'),
+                  image: AssetImage('assets/messier.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),

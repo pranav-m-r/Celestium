@@ -126,25 +126,25 @@ class _StarArchiveState extends State<StarArchive> {
 
     String img = 'assets/portrait.jpg';
     if (multi > 1) {
-      img = 'assets/BinaryStar.jpg';
+      img = 'assets/binarystar.jpg';
     } else if (startype == 'Blue Supergiant') {
-      img = 'assets/BlueSupergiant.jpg';
+      img = 'assets/bluesupergiant.jpg';
     } else if (startype == 'Red Supergiant') {
       img = 'assets/transit.jpg';
     } else if (startype == 'Bright Giant') {
-      img = 'assets/BrightGiant.jpg';
+      img = 'assets/brightgiant.jpg';
     } else if (startype == 'Red Giant') {
-      img = 'assets/RedGiant.jpg';
+      img = 'assets/redgiant.jpg';
     } else if (startype == 'White Dwarf') {
-      img = 'assets/WhiteDwarf.jpg';
+      img = 'assets/whitedwarf.jpg';
     } else if (startype == 'Main Sequence' &&
         (color == 'Blue' || color == 'Blue-White')) {
-      img = 'assets/BlueMainSequence.jpg';
+      img = 'assets/bluemainseq.jpg';
     } else if (startype == 'Main Sequence' &&
         (color == 'Red' || color == 'Orange')) {
-      img = 'assets/RedDwarf.jpg';
+      img = 'assets/reddwarf.jpg';
     } else {
-      img = 'assets/YellowMainSequence.jpg';
+      img = 'assets/yellowmainseq.jpg';
     }
 
     String dataString = """

@@ -40,24 +40,24 @@ class _EventOptionsState extends State<EventOptions> {
     resBody = "${event.split(' - ')[1]}: ${list[0]['desc']}";
 
     if (event.toLowerCase().contains('mercury')) {
-      resImgPath = 'assets/MercurySS.jpg';
+      resImgPath = 'assets/mercuryimg.jpg';
     } else if (event.toLowerCase().contains('venus')) {
-      resImgPath = 'assets/VenusSS.jpg';
+      resImgPath = 'assets/venusimg.jpg';
     } else if (event.toLowerCase().contains('mars')) {
-      resImgPath = 'assets/MarsSS.jpg';
+      resImgPath = 'assets/marsimg.jpg';
     } else if (event.toLowerCase().contains('jupiter')) {
-      resImgPath = 'assets/JupiterSS.jpg';
+      resImgPath = 'assets/jupiterimg.jpg';
     } else if (event.toLowerCase().contains('saturn')) {
-      resImgPath = 'assets/SaturnSS.jpg';
+      resImgPath = 'assets/saturnimg.jpg';
     } else if (event.toLowerCase().contains('uranus')) {
-      resImgPath = 'assets/UranusSS.jpg';
+      resImgPath = 'assets/uranusimg.jpg';
     } else if (event.toLowerCase().contains('neptune')) {
-      resImgPath = 'assets/NeptuneSS.jpg';
+      resImgPath = 'assets/neptuneimg.jpg';
     } else if (event.toLowerCase().contains('moon')) {
-      resImgPath = 'assets/MoonSS.jpg';
+      resImgPath = 'assets/moonimg.jpg';
     } else if (event.toLowerCase().contains('solstice') ||
         event.toLowerCase().contains('equinox')) {
-      resImgPath = 'assets/RedGiant.jpg';
+      resImgPath = 'assets/redgiant.jpg';
     } else if (event.toLowerCase().contains('lunar')) {
       resImgPath = 'assets/le.jpg';
     } else if (event.toLowerCase().contains('solar')) {
@@ -66,9 +66,9 @@ class _EventOptionsState extends State<EventOptions> {
       resImgPath = 'assets/asteroids.jpg';
     } else if (event.toLowerCase().contains('meteor') ||
         event.toLowerCase().contains('comet')) {
-      resImgPath = 'assets/Comet.jpg';
+      resImgPath = 'assets/comet.jpg';
     } else {
-      resImgPath = 'assets/BinaryStar.jpg';
+      resImgPath = 'assets/binarystar.jpg';
     }
 
     if (mounted) Navigator.pushNamed(context, '/result');
