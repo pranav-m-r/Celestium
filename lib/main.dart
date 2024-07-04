@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'dart:io' show File;
+import 'dart:async' show Completer;
 
 import 'data/globals.dart';
 import 'data/preloadimgs.dart';
@@ -18,12 +19,16 @@ import 'spacequiz/spacequiz.dart';
 import 'spacequiz/quizpage.dart';
 import 'results/results.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  await initDatabase();
+  for (int i = 0; i < preloadImgs.length; i++) {
+    await loadImage(Image.asset('assets/${preloadImgs[i]}.jpg').image);
+  }
   runApp(const MyApp());
 }
 
@@ -58,6 +63,46 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Future<void> initDatabase() async {
+  String databasesPath = await getDatabasesPath();
+  String path = "${databasesPath}database.db";
+  await deleteDatabase(path);
+  ByteData data = await rootBundle.load("assets/database.db");
+  List<int> bytes =
+      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  await File(path).writeAsBytes(bytes, flush: true);
+  db = await openDatabase(path, readOnly: true);
+}
+
+Future<void> loadImage(ImageProvider provider) {
+  final ImageConfiguration config = ImageConfiguration(
+    bundle: rootBundle,
+    platform: TargetPlatform.android,
+  );
+  final Completer<void> completer = Completer<void>();
+  final ImageStream stream = provider.resolve(config);
+
+  late final ImageStreamListener listener;
+
+  listener = ImageStreamListener((ImageInfo image, bool sync) {
+    completer.complete();
+    stream.removeListener(listener);
+  }, onError: (Object exception, StackTrace? stackTrace) {
+    completer.complete();
+    stream.removeListener(listener);
+    FlutterError.reportError(FlutterErrorDetails(
+      context: ErrorDescription('image failed to load'),
+      library: 'image resource service',
+      exception: exception,
+      stack: stackTrace,
+      silent: true,
+    ));
+  });
+
+  stream.addListener(listener);
+  return completer.future;
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -66,31 +111,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void initDatabase() async {
-    String databasesPath = await getDatabasesPath();
-    String path = "${databasesPath}database.db";
-    await deleteDatabase(path);
-    ByteData data = await rootBundle.load("assets/database.db");
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    await File(path).writeAsBytes(bytes, flush: true);
-    db = await openDatabase(path, readOnly: true);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initDatabase();
-  }
-
-  @override
-  void didChangeDependencies() {
-    for (int i = 0; i < preloadImgs.length; i++) {
-      precacheImage(Image.asset('assets/${preloadImgs[i]}.jpg').image, context);
-    }
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

@@ -27,6 +27,8 @@ class _ExploriumState extends State<Explorium> {
     expImgPath1 = "assets/${list[0]['img1']}.jpg";
     expImgPath2 = "assets/${list[0]['img2']}.jpg";
     expImgPath3 = "assets/${list[0]['img3']}.jpg";
+    if (mounted) await precacheImage(Image.asset(expImgPath2).image, context);
+    if (mounted) await precacheImage(Image.asset(expImgPath3).image, context);
     if (mounted) Navigator.pushNamed(context, '/exresult');
   }
 

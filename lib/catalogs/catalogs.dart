@@ -73,6 +73,7 @@ class _DeepSkyState extends State<DeepSky> {
     resImgPath = "assets/${list[0]['img']}.jpg";
     resBody = dataString;
     FocusManager.instance.primaryFocus?.unfocus();
+    if (mounted) await precacheImage(Image.asset(resImgPath).image, context);
     if (mounted) Navigator.pushNamed(context, '/result');
   }
 
