@@ -61,6 +61,7 @@ class _PlanetariumState extends State<Planetarium> {
       """;
 
     resBody = dataString;
+    if (mounted) await precacheImage(Image.asset(resImgPath).image, context);
     if (mounted) Navigator.pushNamed(context, '/result');
   }
 

@@ -171,6 +171,7 @@ class _StarArchiveState extends State<StarArchive> {
     resImgPath = img;
     resBody = dataString;
     FocusManager.instance.primaryFocus?.unfocus();
+    if (mounted) await precacheImage(Image.asset(resImgPath).image, context);
     if (mounted) Navigator.pushNamed(context, '/result');
   }
 

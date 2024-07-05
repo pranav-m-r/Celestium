@@ -1,5 +1,6 @@
 # Astro Quest
-Hey there! Do you want to go on a quest through the cosmos? We can help you there!
+Hey there! Want to go on a quest through the cosmos?  
+We can help you there!
 
 #### Designed & Developed By [Pranav M R](https://github.com/pranav-m-r) (2024)
 
@@ -7,7 +8,7 @@ Hey there! Do you want to go on a quest through the cosmos? We can help you ther
 
 ## Features
 
-#### Let's give you a quick tour!  
+#### Let's give you a quick tour!
 • Star Archive: Information on almost all named and commonly visible stars, along with the ability to create and experiment with your own stars.  
 • Explorium: Multiple sections on astronomy-related topics with content that is easy to grasp accompanied by vibrant imagery.  
 • Planetarium: Reliable data and information about all the planets in the solar system and our moon.  
@@ -25,6 +26,7 @@ Hey there! Do you want to go on a quest through the cosmos? We can help you ther
 • Data on Celestial Events: [Sea and Sky](http://www.seasky.org/astronomy/astronomy.html) ([Non-Profitable Use](http://www.seasky.org/faq.html#faq07))  
 • Data on Messier Objects: [Hubble’s Messier Catalog](https://www.nasa.gov/content/goddard/hubble-s-messier-catalog) ([Public Domain](https://www.nasa.gov/multimedia/guidelines/index.html))  
 • App Backdrop: [Wallpapers.com](https://wallpapers.com/wallpapers/abstract-starry-night-sky-iphone-z58jqt7wzrg3volr.html) ([Attribution Required](https://wallpapers.com/blog/how-to-attribute-an-image.html))  
+• App Graphic Foreground: [Wallpapers.net](https://www.wallpapers.net/earth-orbit-wide-hd-wallpaper/1680x1050) ([Public Domain](https://www.wallpapers.net/page/disclaimer))  
 • Planetary Surface Maps: [Solar System Scope](https://www.solarsystemscope.com/textures/) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))  
 
 ## Screenshots

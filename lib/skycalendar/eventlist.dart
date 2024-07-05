@@ -71,6 +71,7 @@ class _EventOptionsState extends State<EventOptions> {
       resImgPath = 'assets/binarystar.jpg';
     }
 
+    if (mounted) await precacheImage(Image.asset(resImgPath).image, context);
     if (mounted) Navigator.pushNamed(context, '/result');
   }
 

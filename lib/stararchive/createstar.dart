@@ -18,7 +18,7 @@ class _CreateStarState extends State<CreateStar> {
   final lumController = TextEditingController();
   final tempController = TextEditingController();
 
-  void setData() {
+  void setData() async {
     resHead = 'Star Created';
 
     if (massController.text.isEmpty ||
@@ -157,7 +157,8 @@ class _CreateStarState extends State<CreateStar> {
     resImgPath = img;
     resBody = dataString;
     FocusManager.instance.primaryFocus?.unfocus();
-    Navigator.pushNamed(context, '/result');
+    if (mounted) await precacheImage(Image.asset(resImgPath).image, context);
+    if (mounted) Navigator.pushNamed(context, '/result');
   }
 
   @override
