@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'dart:math';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import '../results/resvar.dart';
 
 class CreateStar extends StatefulWidget {
@@ -214,15 +214,15 @@ class _CreateStarState extends State<CreateStar> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            text(20, 'Mass (Solar Masses)'),
+            titleText(20, 'Mass (Solar Masses)'),
             spacing(),
             textInput(massController, 'Mass'),
             dspacing(),
-            text(20, 'Luminosity (Solar Lum.)'),
+            titleText(20, 'Luminosity (Solar Lum.)'),
             spacing(),
             textInput(lumController, 'Luminosity'),
             dspacing(),
-            text(20, 'Surface Temperature (K)'),
+            titleText(20, 'Surface Temperature (K)'),
             spacing(),
             textInput(tempController, 'Temperature'),
             spacing(),
@@ -234,15 +234,15 @@ class _CreateStarState extends State<CreateStar> {
                 child: ElevatedButton(
                   style: btnStyle,
                   onPressed: setData,
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(Icons.create, size: 27),
+                      const SizedBox(),
                       Text(
                         'Create Star',
-                        style: TextStyle(fontSize: 25),
+                        style: fontText(24),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 24,
                       ),

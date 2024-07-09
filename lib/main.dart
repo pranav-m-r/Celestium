@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:io' show File;
 import 'dart:async' show Completer;
 
-import 'data/globals.dart';
+import 'data/themedata.dart';
 import 'data/preloadimgs.dart';
 import 'stararchive/stararchive.dart';
 import 'stararchive/createstar.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
   for (int i = 0; i < preloadImgs.length; i++) {
     await loadImage(Image.asset('assets/${preloadImgs[i]}.jpg').image);
   }
+  GoogleFonts.config.allowRuntimeFetching = false;
   runApp(const MyApp());
 }
 
@@ -40,9 +42,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Astro Quest',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: txtColor),
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.transparent,
+        colorScheme: ColorScheme.fromSeed(seedColor: txtColor),
+        textTheme: GoogleFonts.notoSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       initialRoute: '/',
       routes: {
@@ -129,14 +134,14 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(icon, size: 30),
+              Icon(icon, size: 28),
               Text(
                 txt,
-                style: const TextStyle(fontSize: 26),
+                style: fontText(24),
               ),
               const Icon(
                 Icons.arrow_forward_ios_rounded,
-                size: 25,
+                size: 24,
               ),
             ],
           ),
@@ -157,7 +162,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.black38,
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
-          title: const Text('Astro Quest'),
+          title: Text('Astro Quest', style: GoogleFonts.orbitron()),
           centerTitle: true,
         ),
         body: ListView(

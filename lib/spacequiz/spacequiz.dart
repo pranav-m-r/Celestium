@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import 'quizpage.dart' show quizTopic;
 
 class SpaceQuiz extends StatefulWidget {
@@ -22,28 +22,31 @@ class _SpaceQuizState extends State<SpaceQuiz> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    SizedBox uiButton(String txt) {
+    Padding uiButton(String txt) {
       double y = 0.09;
-      return SizedBox(
-        height: screenHeight * y,
-        child: ElevatedButton(
-          style: btnStyle,
-          onPressed: () {
-            startQuiz(txt);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Icon(Icons.contact_support, size: 27),
-              Text(
-                txt,
-                style: const TextStyle(fontSize: 25),
-              ),
-              const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 24,
-              ),
-            ],
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+        child: SizedBox(
+          height: screenHeight * y,
+          child: ElevatedButton(
+            style: btnStyle,
+            onPressed: () {
+              startQuiz(txt);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(),
+                Text(
+                  txt,
+                  style: fontText(24),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 24,
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -66,7 +69,7 @@ class _SpaceQuizState extends State<SpaceQuiz> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            text(20, 'Choose a topic:'),
+            titleText(22, 'Choose a topic:'),
             dspacing(),
             uiButton('Our Universe - I'),
             spacing(),

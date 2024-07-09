@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'dart:math';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import '../results/resvar.dart';
 
 class StarArchive extends StatefulWidget {
@@ -76,27 +76,27 @@ class _StarArchiveState extends State<StarArchive> {
     if (lum >= 10000 && radinsolar >= 30 && temp >= 8400) {
       startype = 'Blue Supergiant';
       evostage = 'Supergiant';
-      lumclass = 'Class I (1)';
+      lumclass = 'Class I';
     } else if (lum >= 10000 && temp <= 5000) {
       startype = 'Red Supergiant';
       evostage = 'Supergiant';
-      lumclass = 'Class I (1)';
+      lumclass = 'Class I';
     } else if (lum >= 1000 && temp > 5000 && temp < 8400) {
       startype = 'Bright Giant';
       evostage = 'Bright Giant';
-      lumclass = 'Class II (2)';
+      lumclass = 'Class II';
     } else if (lum >= 10 && radinsolar >= 8 && temp > 2000 && temp < 5000) {
       startype = 'Red Giant';
       evostage = 'Giant';
-      lumclass = 'Class III (3)';
+      lumclass = 'Class III';
     } else if (lum < 1 && radinsolar <= 0.1 && temp > 5000) {
       startype = 'White Dwarf';
       evostage = 'White Dwarf';
-      lumclass = 'Class VII (7)';
+      lumclass = 'Class VII';
     } else {
       startype = 'Main Sequence';
       evostage = 'Main Sequence';
-      lumclass = 'Class V (5)';
+      lumclass = 'Class V';
     }
 
     String specclass = '';
@@ -154,18 +154,18 @@ class _StarArchiveState extends State<StarArchive> {
       Evol. Stage: $evostage\n
       Luminosity: ${format(lum)} L☉
       Lum. Class: $lumclass\n
-      Surf. Temperature: $temp K
+      Conv. Colour: $color
       Spectral Class: Class $specclass
-      Conventional Color: $color\n
+      Surf. Temperature: $temp K\n
       Mass: ${format(mass)} M☉
       Diameter: ${format(diameter)} km
       Avg. Density: ${format(density)} kg/m³\n
       Surf. Gravity: ${format(gravity)} m/s²
-      Escape Velocity: ${format(escvel)} km/s\n
+      Esc. Velocity: ${format(escvel)} km/s\n
       Apparent Magnitude: ${mag.toStringAsFixed(2)}
       Absolute Magnitude: ${absmag.toStringAsFixed(2)}
       Distance From Earth: ${format(dist)} ly\n
-      No. Of Stars In The System: $multi
+      No. Of Stars In System: $multi
       """;
 
     resImgPath = img;
@@ -199,7 +199,7 @@ class _StarArchiveState extends State<StarArchive> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    Padding uiButton(void Function() fxn, String txt, IconData icon) {
+    Padding uiButton(void Function() fxn, String txt) {
       double y = 0.09;
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
@@ -211,10 +211,10 @@ class _StarArchiveState extends State<StarArchive> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(icon, size: 27),
+                const SizedBox(),
                 Text(
                   txt,
-                  style: const TextStyle(fontSize: 25),
+                  style: fontText(24),
                 ),
                 const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -323,19 +323,19 @@ class _StarArchiveState extends State<StarArchive> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            text(20, 'Want data on a specific star?'),
+            titleText(20, 'Want data on a specific star?'),
             dspacing(),
             starDropdown(stars),
             dspacing(),
-            uiButton(selectStar, 'Select Star', Icons.search),
+            uiButton(selectStar, 'Select Star'),
             dspacing(),
-            text(20, 'Want to create your own star?'),
+            titleText(20, 'Want to create your own star?'),
             dspacing(),
-            uiButton(createStar, 'Create Star', Icons.create),
+            uiButton(createStar, 'Create Star'),
             dspacing(),
-            text(20, 'Want to learn about a new star?'),
+            titleText(20, 'Want to learn about a new star?'),
             dspacing(),
-            uiButton(randomStar, 'Random Star', Icons.casino),
+            uiButton(randomStar, 'Random Star'),
             spacing(),
           ],
         ),

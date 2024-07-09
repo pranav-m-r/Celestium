@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 
 String expResHead = 'Explorium';
 String expResBody1 = 'test';

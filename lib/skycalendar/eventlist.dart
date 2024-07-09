@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import '../results/resvar.dart';
 
 String selectedYear = '2024';
@@ -84,7 +84,7 @@ class _EventOptionsState extends State<EventOptions> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: appBar('Sky Calendar'),
+        appBar: appBar("$selectedYear Calendar"),
         body: Material(
           color: Colors.transparent,
           shadowColor: Colors.transparent,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import '../results/resvar.dart';
 import 'messierdata.dart';
 
@@ -95,10 +95,10 @@ class _DeepSkyState extends State<DeepSky> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Icon(Icons.search, size: 28),
+                const SizedBox(),
                 Text(
                   txt,
-                  style: const TextStyle(fontSize: 25),
+                  style: fontText(24),
                 ),
                 const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -207,7 +207,7 @@ class _DeepSkyState extends State<DeepSky> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            text(20, 'Search the Messier catalog:'),
+            titleText(20, 'Search the Messier catalog:'),
             dspacing(),
             catalogDropdown(messier),
             dspacing(),
@@ -216,7 +216,7 @@ class _DeepSkyState extends State<DeepSky> {
             }, 'Select Object'),
             dspacing(),
             spacing(),
-            text(20, 'History & Background:'),
+            titleText(21, 'History & Background:'),
             dspacing(),
             Container(
               height: screenWidth * 0.5,

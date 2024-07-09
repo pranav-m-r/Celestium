@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import '../results/resvar.dart';
 
 class Planetarium extends StatefulWidget {
@@ -26,11 +26,9 @@ class _PlanetariumState extends State<Planetarium> {
     String complbl = 'Atmospheric';
     if (planet == 'Moon' || planet == 'Mercury') complbl = 'Elemental';
 
-    String distlbl = 'Sun';
     String perlbl = 'Perihelion';
     String aplbl = 'Aphelion';
     if (planet == 'Moon') {
-      distlbl = 'Earth';
       perlbl = 'Perigee';
       aplbl = 'Apogee';
     }
@@ -41,17 +39,17 @@ class _PlanetariumState extends State<Planetarium> {
       Diameter: ${data['diameter']} km
       Avg. Density: ${data['density']} kg/m^3\n
       Surf. Gravity: ${data['gravity']} m/s^2
-      Escape Velocity: ${data['escvel']} km/s\n
+      Esc. Velocity: ${data['escvel']} km/s\n
       Surf. Pressure: ${data['press']} atm
       Mean Temperature: ${data['temp']} °C\n
       Rotation Period: ${data['rotper']} hours
       Length of Day: ${data['day']} hours
       Axial Tilt: ${data['axialtilt']} degrees\n
       Orbital Period: ${data['orbper']} days
-      Orbital Velocity: ${data['orbvel']} km/s
-      Orbital Inclination: ${data['orbinc']} degrees
-      Orbital Eccentricity: ${data['orbecc']}\n
-      Distance ($distlbl): ${data['dist']} x 10^6 km
+      Orb. Velocity: ${data['orbvel']} km/s
+      Orb. Inclination: ${data['orbinc']} degrees
+      Orb. Eccentricity: ${data['orbecc']}\n
+      Distance: ${data['dist']} x 10^6 km
       $perlbl: ${data['perhel']} x 10^6 km
       $aplbl: ${data['aphel']} x 10^6 km\n
       Ring System: ${data['ring']}
@@ -110,10 +108,7 @@ class _PlanetariumState extends State<Planetarium> {
                   children: [
                     Text(
                       text,
-                      style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                      style: fontText(24, color: Colors.white),
                     ),
                     SizedBox(width: screenWidth * 0.05),
                     const Icon(
@@ -191,7 +186,7 @@ class _PlanetariumState extends State<Planetarium> {
                     ),
                     Text(
                       'Page ${currentPage + 1}',
-                      style: const TextStyle(fontSize: 20, color: txtColor),
+                      style: fontText(20, color: txtColor),
                     ),
                     IconButton(
                       icon: const Icon(

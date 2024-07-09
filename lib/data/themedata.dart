@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart' show Database;
+import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
 
 String version = 'Unknown';
 
@@ -35,14 +36,20 @@ ButtonStyle dropdownStyle = ElevatedButton.styleFrom(
   foregroundColor: Colors.white,
 );
 
-Center text(double size, String txt) {
+Center titleText(double size, String txt) {
   return Center(
     child: Text(
       txt,
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: size, color: Colors.white),
+      style: TextStyle(
+          fontSize: size, fontWeight: FontWeight.w500, color: Colors.white),
     ),
   );
+}
+
+TextStyle fontText(double size, {Color color = txtColor}) {
+  return GoogleFonts.orbitron(
+      fontSize: size, fontWeight: FontWeight.w500, color: color);
 }
 
 AppBar appBar(String title) {
@@ -51,7 +58,7 @@ AppBar appBar(String title) {
     backgroundColor: Colors.black38,
     shadowColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
-    title: Text(title),
+    title: Text(title, style: GoogleFonts.orbitron()),
     centerTitle: true,
   );
 }

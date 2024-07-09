@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import 'exresults.dart';
 import 'expdata.dart';
 
@@ -65,10 +65,7 @@ class _ExploriumState extends State<Explorium> {
                   children: [
                     Text(
                       text,
-                      style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                      style: fontText(24, color: Colors.white),
                     ),
                     SizedBox(width: screenWidth * 0.05),
                     const Icon(
@@ -146,7 +143,7 @@ class _ExploriumState extends State<Explorium> {
                     ),
                     Text(
                       'Page ${currentPage + 1}',
-                      style: const TextStyle(fontSize: 20, color: txtColor),
+                      style: fontText(20),
                     ),
                     IconButton(
                       icon: const Icon(

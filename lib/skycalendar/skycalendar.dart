@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import 'eventlist.dart' show selectedYear;
 
 class SkyCalendar extends StatefulWidget {
@@ -30,28 +30,31 @@ class _SkyCalendarState extends State<SkyCalendar> {
       return SizedBox(height: padding * 0.8 * 2);
     }
 
-    SizedBox uiButton(String txt) {
+    Padding uiButton(String txt) {
       double y = 0.09;
-      return SizedBox(
-        height: screenHeight * y,
-        child: ElevatedButton(
-          style: btnStyle,
-          onPressed: () {
-            showEvents(txt);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Icon(Icons.calendar_month, size: 27),
-              Text(
-                txt,
-                style: const TextStyle(fontSize: 25),
-              ),
-              const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 24,
-              ),
-            ],
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+        child: SizedBox(
+          height: screenHeight * y,
+          child: ElevatedButton(
+            style: btnStyle,
+            onPressed: () {
+              showEvents(txt);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(),
+                Text(
+                  "$txt Calendar",
+                  style: fontText(24),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 24,
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -66,7 +69,7 @@ class _SkyCalendarState extends State<SkyCalendar> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            text(20, 'Upcoming Events:'),
+            titleText(22, 'Upcoming Events:'),
             dspacing(),
             uiButton('2024'),
             spacing(),
@@ -76,7 +79,7 @@ class _SkyCalendarState extends State<SkyCalendar> {
             spacing(),
             uiButton('2027'),
             dspacing(),
-            text(20, 'Past Events:'),
+            titleText(22, 'Past Events:'),
             dspacing(),
             uiButton('2023'),
             spacing(),

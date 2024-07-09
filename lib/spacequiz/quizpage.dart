@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import 'quizdata.dart';
 
 String quizTopic = 'Our Universe - I';
@@ -127,12 +127,12 @@ class _QuizScreenState extends State<QuizScreen> {
               Text(
                 (qno < questions.length)
                     ? 'Next Question'
-                    : 'Score: $score out of ${questions.length}',
-                style: const TextStyle(fontSize: 25),
+                    : 'Score: $score/${questions.length}',
+                style: fontText(24),
               ),
               (qno < questions.length)
                   ? const Icon(Icons.arrow_forward_ios_rounded, size: 24)
-                  : const Icon(Icons.exit_to_app, size: 28),
+                  : const Icon(Icons.exit_to_app, size: 27),
             ],
           ),
         ),
@@ -157,11 +157,11 @@ class _QuizScreenState extends State<QuizScreen> {
                   children: [
                     Text(
                       (qtracker != 0) ? "Score: $score/$qtracker" : "",
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: fontText(18, color: Colors.white),
                     ),
                     Text(
                       "Question $qno/${questions.length}",
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: fontText(18, color: Colors.white),
                     ),
                   ],
                 ),

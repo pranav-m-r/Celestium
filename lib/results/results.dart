@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart' show FlutterTts;
 
-import '../data/globals.dart';
+import '../data/themedata.dart';
 import 'resvar.dart';
 
 class ResultPage extends StatefulWidget {
@@ -86,7 +86,13 @@ class _ResultPageState extends State<ResultPage> {
               ),
             ),
             SizedBox(height: padding * 0.5),
-            text(14, '(Representative Image)'),
+            const Center(
+              child: Text(
+                '(Representative Image)',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
             dspacing(),
             Center(
               child: SizedBox(
