@@ -42,14 +42,13 @@ Center titleText(double size, String txt) {
       txt,
       textAlign: TextAlign.center,
       style: TextStyle(
-          fontSize: size, fontWeight: FontWeight.w500, color: Colors.white),
+          fontSize: size, color: Colors.white),
     ),
   );
 }
 
 TextStyle fontText(double size, {Color color = txtColor}) {
-  return GoogleFonts.orbitron(
-      fontSize: size, fontWeight: FontWeight.w500, color: color);
+  return GoogleFonts.orbitron(fontSize: size, color: color);
 }
 
 AppBar appBar(String title) {

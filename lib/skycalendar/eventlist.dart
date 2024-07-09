@@ -62,8 +62,6 @@ class _EventOptionsState extends State<EventOptions> {
       resImgPath = 'assets/le.jpg';
     } else if (event.toLowerCase().contains('solar')) {
       resImgPath = 'assets/se.jpg';
-    } else if (event.toLowerCase().contains('asteroid')) {
-      resImgPath = 'assets/asteroids.jpg';
     } else if (event.toLowerCase().contains('meteor') ||
         event.toLowerCase().contains('comet')) {
       resImgPath = 'assets/comet.jpg';
@@ -84,7 +82,7 @@ class _EventOptionsState extends State<EventOptions> {
       decoration: background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: appBar("$selectedYear Calendar"),
+        appBar: appBar(selectedYear),
         body: Material(
           color: Colors.transparent,
           shadowColor: Colors.transparent,

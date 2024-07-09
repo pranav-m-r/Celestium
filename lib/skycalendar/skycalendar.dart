@@ -30,31 +30,29 @@ class _SkyCalendarState extends State<SkyCalendar> {
       return SizedBox(height: padding * 0.8 * 2);
     }
 
-    Padding uiButton(String txt) {
+    SizedBox uiButton(String txt) {
       double y = 0.09;
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
-        child: SizedBox(
-          height: screenHeight * y,
-          child: ElevatedButton(
-            style: btnStyle,
-            onPressed: () {
-              showEvents(txt);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const SizedBox(),
-                Text(
-                  "$txt Calendar",
-                  style: fontText(24),
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 24,
-                ),
-              ],
-            ),
+      return SizedBox(
+        width: screenWidth * 0.45,
+        height: screenHeight * y,
+        child: ElevatedButton(
+          style: btnStyle,
+          onPressed: () {
+            showEvents(txt);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(),
+              Text(
+                txt,
+                style: fontText(23),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 23,
+              ),
+            ],
           ),
         ),
       );
@@ -66,26 +64,43 @@ class _SkyCalendarState extends State<SkyCalendar> {
         backgroundColor: Colors.transparent,
         appBar: appBar('Sky Calendar'),
         body: ListView(
-          padding: EdgeInsets.all(padding),
           children: <Widget>[
-            spacing(),
+            dspacing(),
             titleText(22, 'Upcoming Events:'),
             dspacing(),
-            uiButton('2024'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                uiButton('2024'),
+                uiButton('2025'),
+              ],
+            ),
             spacing(),
-            uiButton('2025'),
-            spacing(),
-            uiButton('2026'),
-            spacing(),
-            uiButton('2027'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                uiButton('2026'),
+                uiButton('2027'),
+              ],
+            ),
             dspacing(),
             titleText(22, 'Past Events:'),
             dspacing(),
-            uiButton('2023'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                uiButton('2023'),
+                uiButton('2022'),
+              ],
+            ),
             spacing(),
-            uiButton('2022'),
-            spacing(),
-            uiButton('2021'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                uiButton('2021'),
+                uiButton('2020'),
+              ],
+            ),
             spacing(),
           ],
         ),

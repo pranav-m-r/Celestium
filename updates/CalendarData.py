@@ -42,6 +42,6 @@ def getData(year, db_filename):
     conn.commit()
     conn.close()
 
-year = 2027
+year = 2020
 db_filename = 'database.db'
 getData(year, db_filename)

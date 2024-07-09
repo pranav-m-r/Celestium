@@ -68,27 +68,27 @@ class _CreateStarState extends State<CreateStar> {
     if (lum >= 10000 && radinsolar >= 30 && temp >= 8400) {
       startype = 'Blue Supergiant';
       evostage = 'Supergiant';
-      lumclass = 'Class I (1)';
+      lumclass = 'Class I';
     } else if (lum >= 10000 && temp <= 5000) {
       startype = 'Red Supergiant';
       evostage = 'Supergiant';
-      lumclass = 'Class I (1)';
+      lumclass = 'Class I';
     } else if (lum >= 1000 && temp > 5000 && temp < 8400) {
       startype = 'Bright Giant';
       evostage = 'Bright Giant';
-      lumclass = 'Class II (2)';
+      lumclass = 'Class II';
     } else if (lum >= 10 && radinsolar >= 8 && temp > 2000 && temp < 5000) {
       startype = 'Red Giant';
       evostage = 'Giant';
-      lumclass = 'Class III (3)';
+      lumclass = 'Class III';
     } else if (lum < 1 && radinsolar <= 0.1 && temp > 5000) {
       startype = 'White Dwarf';
       evostage = 'White Dwarf';
-      lumclass = 'Class VII (7)';
+      lumclass = 'Class VII';
     } else {
       startype = 'Main Sequence';
       evostage = 'Main Sequence';
-      lumclass = 'Class V (5)';
+      lumclass = 'Class V';
     }
 
     String specclass = '';
@@ -142,9 +142,9 @@ class _CreateStarState extends State<CreateStar> {
       Evol. Stage: $evostage\n
       Luminosity: ${format(lum)} L☉
       Lum. Class: $lumclass\n
-      Surf. Temperature: $temp K
+      Conv. Color: $color
       Spectral Class: Class $specclass
-      Conventional Color: $color\n
+      Surf. Temperature: $temp K\n
       Mass: ${format(mass)} M☉
       Avg. Density: ${format(density)} g/cm³
       Surf. Gravity: ${format(gravity)} m/s²

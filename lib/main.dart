@@ -7,7 +7,6 @@ import 'dart:io' show File;
 import 'dart:async' show Completer;
 
 import 'data/themedata.dart';
-import 'data/preloadimgs.dart';
 import 'stararchive/stararchive.dart';
 import 'stararchive/createstar.dart';
 import 'explorium/explorium.dart';
@@ -45,9 +44,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.transparent,
         colorScheme: ColorScheme.fromSeed(seedColor: txtColor),
-        textTheme: GoogleFonts.notoSansTextTheme(
-          Theme.of(context).textTheme,
-        ),
       ),
       initialRoute: '/',
       routes: {
@@ -108,6 +104,16 @@ Future<void> loadImage(ImageProvider provider) {
   return completer.future;
 }
 
+const List<String> preloadImgs = [
+  'portrait',
+  'universe',
+  'bigbang',
+  'm83',
+  'mercury',
+  'venus',
+  'earth',
+];
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -122,14 +128,20 @@ class _HomePageState extends State<HomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
     double padding = screenWidth * 0.05;
 
-    SizedBox routeButton(String route, String txt, IconData icon) {
+    SizedBox routeButton(String route, String txt, IconData icon,
+        {List<String> precache = const []}) {
       double y = 0.12;
       return SizedBox(
         height: screenHeight * y,
         child: ElevatedButton(
           style: btnStyle,
-          onPressed: () {
-            Navigator.pushNamed(context, route);
+          onPressed: () async {
+            for (String imgPath in precache) {
+              if (mounted) {
+                await precacheImage(Image.asset(imgPath).image, context);
+              }
+            }
+            if (context.mounted) Navigator.pushNamed(context, route);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -170,11 +182,23 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             routeButton('/stararchive', 'Star Archive', Icons.folder_special),
             spacing(),
-            routeButton('/explorium', 'Explorium', Icons.web_stories),
+            routeButton('/explorium', 'Explorium', Icons.web_stories,
+                precache: [
+                  'assets/universe.jpg',
+                  'assets/bigbang.jpg',
+                  'assets/m83.jpg',
+                ]),
             spacing(),
-            routeButton('/planetarium', 'Planetarium', Icons.public),
+            routeButton('/planetarium', 'Planetarium', Icons.public, precache: [
+              'assets/mercury.jpg',
+              'assets/venus.jpg',
+              'assets/earth.jpg',
+            ]),
             spacing(),
-            routeButton('/deepsky', 'Sky Catalogs', Icons.library_books),
+            routeButton('/deepsky', 'Sky Catalogs', Icons.library_books,
+                precache: [
+                  'assets/messier.jpg',
+                ]),
             spacing(),
             routeButton('/skycalendar', 'Sky Calendar', Icons.calendar_month),
             spacing(),

@@ -25,7 +25,7 @@ class _SpaceQuizState extends State<SpaceQuiz> {
     Padding uiButton(String txt) {
       double y = 0.09;
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
         child: SizedBox(
           height: screenHeight * y,
           child: ElevatedButton(
