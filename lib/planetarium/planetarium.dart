@@ -42,12 +42,12 @@ class _PlanetariumState extends State<Planetarium> {
       Esc. Velocity: ${data['escvel']} km/s\n
       Surf. Pressure: ${data['press']} atm
       Mean Temperature: ${data['temp']} °C\n
-      Rotation Period: ${data['rotper']} hours
-      Length of Day: ${data['day']} hours
-      Axial Tilt: ${data['axialtilt']} degrees\n
+      Rotation Period: ${data['rotper']} hrs
+      Length of Day: ${data['day']} hrs
+      Axial Tilt: ${data['axialtilt']}°\n
       Orbital Period: ${data['orbper']} days
       Orb. Velocity: ${data['orbvel']} km/s
-      Orb. Inclination: ${data['orbinc']} degrees
+      Orb. Inclination: ${data['orbinc']}°
       Orb. Eccentricity: ${data['orbecc']}\n
       Distance: ${data['dist']} x 10^6 km
       $perlbl: ${data['perhel']} x 10^6 km

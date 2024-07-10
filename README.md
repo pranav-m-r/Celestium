@@ -3,7 +3,7 @@ Hey there! Want to go on a quest through the cosmos?
 
 #### Designed & Developed By [Pranav M R](https://github.com/pranav-m-r) (2024)
 
-![Banner](<brand/TV Banner.jpg>)
+![Banner](<brand/TV Banner.png>)
 
 ## Features
 
