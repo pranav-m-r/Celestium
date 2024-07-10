@@ -92,6 +92,7 @@ class _SkyCalendarState extends State<SkyCalendar> {
               ],
             ),
             dspacing(),
+            spacing(),
             titleText(21, 'Previous Events'),
             dspacing(),
             Row(

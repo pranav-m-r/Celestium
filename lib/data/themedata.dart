@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart' show Database;
 import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
 
-String version = 'Unknown';
-
 late Database db;
 
 const txtColor = Color.fromARGB(255, 225, 200, 255);

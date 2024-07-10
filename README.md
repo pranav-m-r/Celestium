@@ -1,7 +1,8 @@
 # Celestium
 Hey there! Want to go on a quest through the cosmos?
 
-#### Designed & Developed By [Pranav M R](https://github.com/pranav-m-r) (2024)
+#### Designed & developed by [Pranav M R](https://github.com/pranav-m-r)
+#### Available for download on [Google Play](https://play.google.com/store/apps/details?id=com.pranavmr.celestium)
 
 ![Banner](<brand/TV Banner.png>)
 

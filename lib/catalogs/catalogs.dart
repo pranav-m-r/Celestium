@@ -208,16 +208,16 @@ class _DeepSkyState extends State<DeepSky> {
           children: <Widget>[
             spacing(),
             titleText(17, 'Search the Messier catalog'),
-            dspacing(),
+            spacing(),
             catalogDropdown(messier),
-            dspacing(),
+            spacing(),
             uiButton(() {
               selectMessier(messierSelection);
             }, 'Select Object'),
             dspacing(),
             spacing(),
             titleText(18, 'History & Background'),
-            dspacing(),
+            spacing(),
             Container(
               height: screenWidth * 0.5,
               decoration: BoxDecoration(

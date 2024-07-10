@@ -214,19 +214,19 @@ class _CreateStarState extends State<CreateStar> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            titleText(17, 'Mass (Solar Masses)'),
+            titleText(18, 'Mass (Solar Masses)'),
             spacing(),
             textInput(massController, 'Mass'),
             dspacing(),
-            titleText(17, 'Luminosity (Solar Lum.)'),
+            titleText(18, 'Luminosity (Solar Lum.)'),
             spacing(),
             textInput(lumController, 'Luminosity'),
             dspacing(),
-            titleText(17, 'Surface Temperature (K)'),
+            titleText(18, 'Surface Temperature (K)'),
             spacing(),
             textInput(tempController, 'Temperature'),
-            spacing(),
             dspacing(),
+            spacing(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
               child: SizedBox(
