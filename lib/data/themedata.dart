@@ -40,9 +40,7 @@ Center titleText(double size, String txt) {
   return Center(
     child: Text(
       txt,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-          fontSize: size, color: Colors.white),
+      style: fontText(size, color: Colors.white),
     ),
   );
 }

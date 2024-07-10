@@ -69,7 +69,7 @@ class _SpaceQuizState extends State<SpaceQuiz> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            titleText(22, 'Choose a topic:'),
+            titleText(22, 'Choose a topic'),
             dspacing(),
             uiButton('Our Universe - I'),
             spacing(),

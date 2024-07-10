@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Astro Quest',
+      title: 'Celestium',
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.transparent,
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.black38,
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
-          title: Text('Astro Quest', style: GoogleFonts.orbitron()),
+          title: Text('Celestium', style: GoogleFonts.orbitron()),
           centerTitle: true,
         ),
         body: ListView(

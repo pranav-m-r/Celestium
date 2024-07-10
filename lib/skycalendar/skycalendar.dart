@@ -66,7 +66,7 @@ class _SkyCalendarState extends State<SkyCalendar> {
         body: ListView(
           children: <Widget>[
             dspacing(),
-            titleText(22, 'Upcoming Events:'),
+            titleText(21, 'Upcoming Events'),
             dspacing(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -83,8 +83,16 @@ class _SkyCalendarState extends State<SkyCalendar> {
                 uiButton('2027'),
               ],
             ),
+            spacing(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                uiButton('2028'),
+                uiButton('2029'),
+              ],
+            ),
             dspacing(),
-            titleText(22, 'Past Events:'),
+            titleText(21, 'Previous Events'),
             dspacing(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,6 +1,5 @@
-# Astro Quest
-Hey there! Want to go on a quest through the cosmos?  
-We can help you there!
+# Celestium
+Hey there! Want to go on a quest through the cosmos?
 
 #### Designed & Developed By [Pranav M R](https://github.com/pranav-m-r) (2024)
 
@@ -25,9 +24,9 @@ We can help you there!
 • Data on Planets: [NASA GSFC](https://nssdc.gsfc.nasa.gov/planetary/factsheet/) ([Public Domain](https://www.nasa.gov/multimedia/guidelines/index.html))  
 • Data on Celestial Events: [Sea and Sky](http://www.seasky.org/astronomy/astronomy.html) ([Non-Profitable Use](http://www.seasky.org/faq.html#faq07))  
 • Data on Messier Objects: [Hubble’s Messier Catalog](https://www.nasa.gov/content/goddard/hubble-s-messier-catalog) ([Public Domain](https://www.nasa.gov/multimedia/guidelines/index.html))  
-• App Backdrop: [Wallpapers.com](https://wallpapers.com/wallpapers/abstract-starry-night-sky-iphone-z58jqt7wzrg3volr.html) ([Attribution Required](https://wallpapers.com/blog/how-to-attribute-an-image.html))  
-• App Graphic Foreground: [Wallpapers.net](https://www.wallpapers.net/earth-orbit-wide-hd-wallpaper/1680x1050) ([Public Domain](https://www.wallpapers.net/page/disclaimer))  
 • Planetary Surface Maps: [Solar System Scope](https://www.solarsystemscope.com/textures/) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))  
+• App Icon Background: [Noun Project](https://thenounproject.com/icon/space-1895599/) ([CC BY 3.0](https://creativecommons.org/licenses/by/3.0/))  
+• App Graphic Foreground: [GraphicWallet](https://www.graphicwallet.com/products/iphone-x-colorful-night-stars-wallpaper/) ([Free For Use](https://www.graphicwallet.com/products/iphone-x-colorful-night-stars-wallpaper/))
 
 ## Screenshots
 | ![1](<brand/Screenshots/SS (1).jpg>) | ![2](<brand/Screenshots/SS (2).jpg>) | ![3](<brand/Screenshots/SS (3).jpg>) | ![4](<brand/Screenshots/SS (4).jpg>) |
@@ -44,7 +43,7 @@ We can help you there!
 #### Steps To Run
 
 1. Clone this repository:
-``` git clone https://github.com/pranav-m-r/AstroQuest.git ```
+``` git clone https://github.com/pranav-m-r/Celestium.git ```
 
 2. Fetch the required packages:
 ``` flutter pub get ```

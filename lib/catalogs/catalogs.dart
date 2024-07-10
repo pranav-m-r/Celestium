@@ -207,7 +207,7 @@ class _DeepSkyState extends State<DeepSky> {
           padding: EdgeInsets.all(padding),
           children: <Widget>[
             spacing(),
-            titleText(20, 'Search the Messier catalog:'),
+            titleText(18, 'Search the Messier catalog'),
             dspacing(),
             catalogDropdown(messier),
             dspacing(),
@@ -216,7 +216,7 @@ class _DeepSkyState extends State<DeepSky> {
             }, 'Select Object'),
             dspacing(),
             spacing(),
-            titleText(21, 'History & Background:'),
+            titleText(19, 'History & Background'),
             dspacing(),
             Container(
               height: screenWidth * 0.5,

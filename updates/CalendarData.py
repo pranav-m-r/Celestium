@@ -33,7 +33,7 @@ def getData(year, db_filename):
     table_name = 'sc' + str(year)
 
     columns = "event TEXT, desc TEXT"
-    cursor.execute(f"DROP TABLE {table_name}")
+    #cursor.execute(f"DROP TABLE {table_name}")
     cursor.execute(f"CREATE TABLE {table_name} ({columns})")
 
     for i in range(len(events)):
@@ -42,6 +42,6 @@ def getData(year, db_filename):
     conn.commit()
     conn.close()
 
-year = 2020
+year = 2029
 db_filename = 'database.db'
 getData(year, db_filename)
