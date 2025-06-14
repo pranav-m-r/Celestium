@@ -115,76 +115,87 @@ class _DeepSkyState extends State<DeepSky> {
       return Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-          child: Autocomplete<String>(
-            fieldViewBuilder:
-                (context, textEditingController, focusNode, onFieldSubmitted) =>
+          child: Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              Autocomplete<String>(
+                fieldViewBuilder: (context, textEditingController, focusNode,
+                        onFieldSubmitted) =>
                     TextField(
-              controller: textEditingController,
-              focusNode: focusNode,
-              onChanged: (value) {
-                messierSelection = value;
-              },
-              onTapOutside: (event) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              style: const TextStyle(color: Colors.white, fontSize: 18),
-              decoration: const InputDecoration(
-                hintText: 'Select',
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: txtColor, width: 0.8),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: txtColor, width: 1.6),
-                ),
-                fillColor: Colors.black26,
-                filled: true,
-              ),
-            ),
-            optionsViewBuilder:
-                (context, Function(String) onSelected, options) {
-              return Align(
-                alignment: Alignment.topLeft,
-                child: Material(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Colors.black87,
-                  child: SizedBox(
-                    height: (options.length < 5) ? options.length * 56 : 56 * 5,
-                    width: screenWidth * 0.74,
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: options.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final String option = options.elementAt(index);
-                        return ListTile(
-                          title: Text(option,
-                              style: const TextStyle(color: Colors.white)),
-                          onTap: () {
-                            onSelected(option);
-                          },
-                        );
-                      },
+                  controller: textEditingController,
+                  focusNode: focusNode,
+                  onChanged: (value) {
+                    messierSelection = value;
+                  },
+                  onTapOutside: (event) {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
+                  decoration: const InputDecoration(
+                    hintText: 'Select',
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: txtColor, width: 0.8),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: txtColor, width: 1.6),
+                    ),
+                    fillColor: Colors.black26,
+                    filled: true,
                   ),
                 ),
-              );
-            },
-            optionsBuilder: (TextEditingValue textEditingValue) {
-              if (textEditingValue.text == '') {
-                return const Iterable<String>.empty();
-              }
-              return list.where((String option) {
-                return option
-                    .toLowerCase()
-                    .contains(textEditingValue.text.toLowerCase());
-              });
-            },
-            onSelected: (String selection) {
-              messierSelection = selection;
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
+                optionsViewBuilder:
+                    (context, Function(String) onSelected, options) {
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.black87,
+                      child: SizedBox(
+                        height:
+                            (options.length < 5) ? options.length * 56 : 56 * 5,
+                        width: screenWidth * 0.74,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: options.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final String option = options.elementAt(index);
+                            return ListTile(
+                              title: Text(option,
+                                  style: const TextStyle(color: Colors.white)),
+                              onTap: () {
+                                onSelected(option);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text == '') {
+                    return list;
+                  }
+                  return list.where((String option) {
+                    return option
+                        .toLowerCase()
+                        .contains(textEditingValue.text.toLowerCase());
+                  });
+                },
+                onSelected: (String selection) {
+                  messierSelection = selection;
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+              ),
+              const Icon(
+                Icons.arrow_drop_down,
+                color: txtColor,
+                size: 30,
+              ),
+            ],
           ),
         ),
       );

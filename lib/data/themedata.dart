@@ -63,7 +63,7 @@ void showErrorMessage(String msg, BuildContext context) {
     showCloseIcon: true,
     closeIconColor: txtColor,
     duration: const Duration(seconds: 5),
-    backgroundColor: Colors.black54,
+    backgroundColor: Colors.black87,
     content: Text(msg, style: const TextStyle(color: Colors.white)),
   );
   ScaffoldMessenger.of(context).hideCurrentSnackBar();

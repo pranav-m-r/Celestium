@@ -144,7 +144,7 @@ class _CreateStarState extends State<CreateStar> {
       Lum. Class: $lumclass\n
       Conv. Color: $color
       Spectral Class: Class $specclass
-      Surf. Temperature: $temp K\n
+      Surf. Temperature: ${format(temp)} K\n
       Mass: ${format(mass)} M☉
       Avg. Density: ${format(density)} g/cm³
       Surf. Gravity: ${format(gravity)} m/s²
@@ -189,9 +189,9 @@ class _CreateStarState extends State<CreateStar> {
             fillColor: Colors.black26,
             filled: true,
           ),
-          keyboardType: TextInputType.number,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
           inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly
+            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))
           ],
         ),
       );

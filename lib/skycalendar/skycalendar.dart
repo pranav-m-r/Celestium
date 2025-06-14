@@ -71,24 +71,24 @@ class _SkyCalendarState extends State<SkyCalendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                uiButton('2024'),
                 uiButton('2025'),
-              ],
-            ),
-            spacing(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
                 uiButton('2026'),
-                uiButton('2027'),
               ],
             ),
             spacing(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                uiButton('2027'),
                 uiButton('2028'),
+              ],
+            ),
+            spacing(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
                 uiButton('2029'),
+                uiButton('2030'),
               ],
             ),
             dspacing(),
@@ -98,16 +98,16 @@ class _SkyCalendarState extends State<SkyCalendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                uiButton('2024'),
                 uiButton('2023'),
-                uiButton('2022'),
               ],
             ),
             spacing(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                uiButton('2022'),
                 uiButton('2021'),
-                uiButton('2020'),
               ],
             ),
             spacing(),

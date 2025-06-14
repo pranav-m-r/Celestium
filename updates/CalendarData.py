@@ -31,9 +31,10 @@ def getData(year, db_filename):
     conn = sqlite3.connect(db_filename)
     cursor = conn.cursor()
     table_name = 'sc' + str(year)
+    table_to_delete = 'sc' + str(year - 10)
 
     columns = "event TEXT, desc TEXT"
-    #cursor.execute(f"DROP TABLE {table_name}")
+    cursor.execute(f"DROP TABLE {table_to_delete}")
     cursor.execute(f"CREATE TABLE {table_name} ({columns})")
 
     for i in range(len(events)):
@@ -42,6 +43,6 @@ def getData(year, db_filename):
     conn.commit()
     conn.close()
 
-year = 2029
+year = 2030
 db_filename = 'database.db'
 getData(year, db_filename)
